@@ -120,7 +120,7 @@ void poner_mina(tJuego& juego, int fila, int columna) {
 }
 
 
-void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
+void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {// hola
 	tCelda celda = juego.tablero.datos[fila][columna]; 
 	if (es_valida(juego.tablero, fila, columna) && !es_visible(celda) && !esta_marcada(celda)) {
 		descubrir_celda(juego.tablero.datos[fila][columna]); 
