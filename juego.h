@@ -1,8 +1,8 @@
-#pragma once
 #ifndef juego_h
 #define juego_h
 using namespace std;
 #include "tablero.h"
+#include "listaPosiciones.h"
 
 typedef struct {
 	tTablero tablero;
@@ -14,8 +14,8 @@ typedef struct {
 
 void inicializar(tJuego& juego);
 void inicializar_juego(tJuego& juego, int nfils, int ncols);
-int dame_num_jugadas(tJuego juego);
-int dame_num_filas(tJuego juego);
+//int dame_num_jugadas(tJuego juego);
+//int dame_num_filas(tJuego juego);
 int dame_num_columnas(tJuego juego);
 int dame_num_minas(tJuego juego);
 bool contiene_mina(tJuego juego, int fila, int columna);
@@ -26,11 +26,10 @@ bool contiene_numero(tJuego juego, int fila, int columna);
 bool dame_numero(tJuego juego, int fila, int columna);
 bool esta_completo(tJuego juego);
 void poner_mina(tJuego& juego, int fila, int columna);
-/*mina_explotada(juego);
-esta_terminado(juego);
-
-marcar_desmarcar(juego, fila, columna);
-juega(juego, fila, columna, lista_pos);*/
+bool mina_explotada(const tJuego& juego, int fila, int columna);
+bool esta_terminado(const tJuego& juego, int fila, int columna);
+void marcar_desmarcar(tJuego& juego, int fila, int columna);
+void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos);
 
 #endif
 

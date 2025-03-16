@@ -10,20 +10,25 @@ using namespace std;
 const char CHAR_MINA = '*';  // Mina
 
 //LEE ARCHIVO INICIAL
-void leer_archivo(tJuego& juego) {
-    ifstream archivo("test0.txt");
+bool leer_archivo(tJuego& juego, string filename) {
+    bool open = true;
+    ifstream archivo(filename);
     if (!archivo) {
-        cerr << "Error al abrir el archivo test0.txt" << endl;
+        cerr << "Error al abrir el archivo " << filename << endl;
+        open = false;
     }
-    int minaFila, minaColumna;
-    archivo >> juego.tablero.nFils >> juego.tablero.nCols >> juego.num_minas
-        >> minaFila >> minaColumna;
+    if (open) {
+        archivo >> juego.tablero.nFils >> juego.tablero.nCols >> juego.num_minas;
+        inicializar_tablero(juego.tablero, juego.tablero.nFils, juego.tablero.nCols);
 
-    /*cout << "nfils: " << juego.tablero.nFils << endl << "nCols: " << juego.tablero.nCols << endl
-        << "num minas: " << juego.num_minas << endl << "mina fila: " << minaFila << endl;*/
+        for (int i = 1; i <= juego.num_minas; i++) {
+            int minaFila, minaColumna;
+            archivo>> minaFila >> minaColumna;
+            poner_mina(juego, minaFila, minaColumna);
+        }
+    }
 
-    inicializar_tablero(juego.tablero, juego.tablero.nFils, juego.tablero.nCols);
-    poner_mina(juego, minaFila, minaColumna);
+    return open;
 }
 
 void pedir_pos(int& fila, int& columna) {
@@ -58,12 +63,12 @@ void mostrar_separador(tJuego juego) {
 void mostrar_celda(tJuego juego, int fila, int columna) {
     tCelda celda = juego.tablero.datos[fila][columna];
 
-    if (!celda.visible && !celda.marcada) {
+    if (!celda.visible && !celda.marcada) { //si está oculta y no marcada
         cout << BG_GRAY << GRAY << N_HUECOS << setfill(' ') << ' ' << RESET;
     }
     else {
         cout << BG_BLACK << BLACK;
-        if (celda.marcada) {
+        if (!celda.marcada) {
             if (celda.estado == MINA) {
                 cout << RED << setw(N_HUECOS) << setfill(' ') << CHAR_MINA << RESET;
             }
@@ -90,7 +95,7 @@ void mostrar_celda(tJuego juego, int fila, int columna) {
 }
 
 
-void mostrar_juego_consola(tJuego juego) {
+void mostrar_juego_consola(const tJuego& juego) {
     
     // mostrar el número de jugadas del juego
     

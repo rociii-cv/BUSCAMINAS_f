@@ -56,11 +56,10 @@ bool dame_numero(tJuego juego,int fila, int columna) {
 
 bool esta_completo(tJuego juego) {
 	bool completo = true; //completo hasta que se demuestre lo contrario
-	tCelda celda; //auxiliar para simplificar escritura
 	int f=0, c = 0;
 	while (completo && (f < juego.tablero.nFils) && (c < juego.tablero.nCols)) {
-		celda = juego.tablero.datos[f][c];
-		if (es_visible(celda) == false) { //busca condicion de fallo (que demuestre que no está completo)
+		tCelda celda = juego.tablero.datos[f][c];
+		if (!es_visible(celda)) { //si no está visible y llega a ser algo distinto de una mina --> FALSE
 			if (dame_estado(celda) != MINA) completo = false;
 		}
 		f++;
@@ -69,7 +68,7 @@ bool esta_completo(tJuego juego) {
 	return completo;
 }
 
-bool mina_explotada(tJuego juego, int fila, int columna) {
+bool mina_explotada(const tJuego& juego, int fila, int columna) {
 	bool siMina, siExplotada=false;
 	siMina = es_mina(juego.tablero.datos[fila][columna]);
 	if (siMina) {
@@ -79,9 +78,9 @@ bool mina_explotada(tJuego juego, int fila, int columna) {
 }
 
 //se termina si explotas la mina o si ganaste (completo el tablero sin contar minas)
-bool esta_terminado(tJuego juego, int fila, int columna) {
+bool esta_terminado(const tJuego& juego, int fila, int columna) {
 	bool siTerminada = false; 
-	if (esta_completo(juego) && mina_explotada(juego, fila, columna)) siTerminada = true;
+	if ((esta_completo(juego)) || (mina_explotada(juego, fila, columna))) siTerminada = true;
 	return siTerminada;
 }
 
@@ -98,15 +97,14 @@ void marcar_desmarcar(tJuego& juego, int fila, int columna) {
 }
 
 void poner_mina(tJuego& juego, int fila, int columna) {
-	
-	if (!es_mina(juego.tablero.datos[fila][columna]) && es_valida(juego.tablero, fila, columna)) { //chequeo posicion válida y que ya no contenga mina:
+	tCelda celda = juego.tablero.datos[fila][columna]; 
+	if (!es_mina(celda) && es_valida(juego.tablero, fila, columna)) { //chequeo posicion válida y que ya no contenga mina:
 		poner_mina(juego.tablero.datos[fila][columna]); //estado de la celda = MINA
 
-		//actualiza posiciones vecinas (numeros):			TENGO QUE VOLVER A CHEAQUEAR SI ES VALIDA PARA EVITAR EN LOS BORDE ACTUALIZAR LAS QUE ESTEN FUERA
-		// FUERA DE FUNCIÓN
+		//actualiza posiciones vecinas (numeros):
 		for (int i = fila - 1; i <= fila + 1; i++) {
 			for (int j = columna - 1; j <= columna + 1; j++) {
-				if (!es_mina(juego.tablero.datos[i][j])) { //mientras que la celda NO sea MINA
+				if (!es_mina(juego.tablero.datos[i][j]) && es_valida(juego.tablero, i, j)) { //mientras que la celda NO sea MINA
 					if (esta_vacia(juego.tablero.datos[i][j])) { //si celda esta vacía pone estado en NUMERO y le asigna un 1
 						poner_numero(juego.tablero.datos[i][j], 1);
 					}
@@ -119,32 +117,22 @@ void poner_mina(tJuego& juego, int fila, int columna) {
 	}
 }
 
-
+//Probablemente surja el stack overflow porque llama demasiadas veces a la función
 void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
-	tCelda celda = juego.tablero.datos[fila][columna]; 
-	if (es_valida(juego.tablero, fila, columna) && !es_visible(celda) && !esta_marcada(celda)) {
-		descubrir_celda(juego.tablero.datos[fila][columna]); 
-		//	CONVIENE METERLO EN OTRA FUNCIÓN
-		lista_pos.lista[lista_pos.cont].posx = fila; 
-		lista_pos.lista[lista_pos.cont].posy = columna;
-		lista_pos.cont++;
+	if (es_valida(juego.tablero, fila, columna)) {
+		if (!es_visible(juego.tablero.datos[fila][columna]) && !esta_marcada(juego.tablero.datos[fila][columna])) {
+			descubrir_celda(juego.tablero.datos[fila][columna]);
+			insertar_final(lista_pos, fila, columna);
 
-		if (!es_mina(celda) && esta_vacia(celda)){ //si se cumple esto actualiza
-			for (int i = fila - 1; i <= fila + 1; i++) {
-				for (int j = columna - 1; j <= columna + 1; j++) {	
-					tCelda celdaAdy = juego.tablero.datos[i][j];
-					if (es_valida(juego.tablero, i, j) && !es_visible(celdaAdy) && !esta_marcada(celdaAdy)) { //si no se salen del tablero actualiza:
-						descubrir_celda(juego.tablero.datos[i][j]);
-						//INSERTAR EN LISTA_POS
-
+			if (esta_vacia(juego.tablero.datos[fila][columna])) { //si la celda que se seleccionó está vacía actualiza adyacentes a ella.
+				for (int i = fila - 1; i <= fila + 1; i++) {
+					for (int j = columna - 1; j <= columna + 1; j++) {
+						if ((i != fila || j != columna) && es_valida(juego.tablero, i, j)) {
+							juega(juego, i, j, lista_pos);
+						}
 					}
 				}
 			}
-			//VOLVER A VER SI ES VALIDA
-			//QUE NO SEA LA PRINCIPAL
-			//FUNCION RECURSIVA JUEGA PARA SI DESCUBRE OTRA MÁS QUE ESTÉ VACÍA
-
 		}
-
 	}
 }

@@ -3,8 +3,8 @@
 using namespace std; 
 #include "celda.h"
 
-const int MAX_FILS = 5;
-const int MAX_COLS = 5;
+const int MAX_FILS = 100;
+const int MAX_COLS = 100;
 
 typedef struct {
 	int nFils, nCols;

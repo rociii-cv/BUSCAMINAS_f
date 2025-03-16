@@ -1,4 +1,3 @@
-#pragma once
 #ifndef listaPosiciones_h
 #define listaPosiciones_h
 using namespace std; 
@@ -13,13 +12,13 @@ typedef struct {
 typedef struct {
 	tPosicion lista[MAX_LISTA];
 	int cont;
+	int final_lista;
 } tListaPosiciones;
 
-/*
-inicializar(lista_pos);
-insertar_final(lista_pos, x, y);
-longitud(lista_pos);
-dame_posX(lista_pos, i);
-dame_posY(lista_pos, i);*/
+void inicializar(tListaPosiciones& lista_pos);
+void insertar_final(tListaPosiciones& lista_pos, int x, int y);
+int longitud(tListaPosiciones lista_pos);
+int dame_posX(tListaPosiciones lista_pos, int i);
+int dame_posY(tListaPosiciones lista_pos, int i);
 
 #endif
