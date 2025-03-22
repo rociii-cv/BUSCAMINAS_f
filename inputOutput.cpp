@@ -43,16 +43,14 @@ void comandos_especiales(tJuego& juego, int fila, int columna) {
         forzar_finalizacion(fila, columna);
     }
     else if (fila == -2 && columna == -2) {
+        cout << "Posicion que se quiere marcar o desmarcar:" << endl;
         pedir_pos(fila, columna);
         if (esta_marcada(juego.tablero.datos[fila][columna])) {
-            cout << "Posicion MARCADA: " << endl;
             desmarcar_celda(juego.tablero.datos[fila][columna]);
         }
         else {
-            cout << "Posicion DESMARCADA: " << endl;
             marcar_celda(juego.tablero.datos[fila][columna]);
         }
-            
     }
     else if (fila == -3 && columna == -3) { 
         //UNDO
