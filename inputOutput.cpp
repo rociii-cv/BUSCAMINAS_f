@@ -38,6 +38,27 @@ void pedir_pos(int& fila, int& columna) {
     cin >> columna;
 }
 
+void comandos_especiales(tJuego& juego, int fila, int columna) {
+    if (fila == -1 && columna == -1) {
+        forzar_finalizacion(fila, columna);
+    }
+    else if (fila == -2 && columna == -2) {
+        pedir_pos(fila, columna);
+        if (esta_marcada(juego.tablero.datos[fila][columna])) {
+            cout << "Posicion MARCADA: " << endl;
+            desmarcar_celda(juego.tablero.datos[fila][columna]);
+        }
+        else {
+            cout << "Posicion DESMARCADA: " << endl;
+            marcar_celda(juego.tablero.datos[fila][columna]);
+        }
+            
+    }
+    else if (fila == -3 && columna == -3) { 
+        //UNDO
+    }
+}
+
 void color_numero(int numero) {
     switch (numero) {
     case 1: cout << BLUE; break;

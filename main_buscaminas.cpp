@@ -27,21 +27,28 @@ int main() {
         mostrar_juego_consola(juego);
         int fila = 0, columna = 0;
         pedir_pos(fila, columna);
-        juega(juego, fila, columna, lista_pos);
+        comandos_especiales(juego, fila, columna);
 
         //repite mientras el juego no esté acabado:
-        while (!esta_terminado(juego, fila, columna)) {
+        while (!esta_terminado(juego, fila, columna) && !forzar_finalizacion(fila, columna)) {
+            juega(juego, fila, columna, lista_pos);
             mostrar_juego_consola(juego);
             pedir_pos(fila, columna);
-            juega(juego, fila, columna, lista_pos);
+            comandos_especiales(juego, fila, columna);
         }
         mostrar_juego_consola(juego); //muestra una ultima vez para que se vea la posicion de la mina explotada
 
-        if (esta_terminado(juego, fila, columna)) {
-            cout << "MINA EXPLOTADA!!! " << endl << "\nJUEGO TERMINADO." << endl;
+        if (esta_terminado(juego, fila, columna) || forzar_finalizacion(fila, columna)) {
+            if (forzar_finalizacion(fila, columna)) {
+                cout << "JUEGO FINALIZADO CON OPERANDO (-1, -1)!!! " << endl;
+            }
+            else if (esta_completo(juego)) {
+                cout << "GANASTE!!! " << endl << "\nJUEGO TERMINADO." << endl;
+            }
+            else cout << "MINA EXPLOTADA!!! " << endl << "\nJUEGO TERMINADO." << endl;
+
         }
     }
-
    
     return 0;
 }
