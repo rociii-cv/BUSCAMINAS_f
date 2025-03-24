@@ -80,7 +80,7 @@ bool mina_explotada(const tJuego& juego, int fila, int columna) {
 //se termina si explotas la mina o si ganaste (completo el tablero sin contar minas)
 bool esta_terminado(const tJuego& juego, int fila, int columna) {
 	bool siTerminada = false; 
-	if ((esta_completo(juego)) || (mina_explotada(juego, fila, columna))) siTerminada = true;
+	if ((esta_completo(juego)) || (mina_explotada(juego, fila, columna))) siTerminada = true; 
 	return siTerminada;
 }
 
