@@ -56,15 +56,16 @@ bool dame_numero(tJuego juego,int fila, int columna) {
 
 bool esta_completo(tJuego juego) {
 	bool completo = true; //completo hasta que se demuestre lo contrario
-	int f=0, c = 0;
-	while (completo && (f < juego.tablero.nFils) && (c < juego.tablero.nCols)) {
-		tCelda celda = juego.tablero.datos[f][c];
-		if (!es_visible(celda)) { //si no está visible y llega a ser algo distinto de una mina --> FALSE
-			if (dame_estado(celda) != MINA) completo = false;
+	int f = 0;
+	while (completo && (f < juego.tablero.nFils)) {
+		for (int c = 0; c < juego.tablero.nCols; c++) {
+			tCelda celda = juego.tablero.datos[f][c];
+			if (!es_visible(celda)) { //si no está visible y llega a ser algo distinto de una mina --> FALSE
+				if (dame_estado(celda) != MINA) completo = false;
+			}
 		}
 		f++;
-		c++;
-	}
+	} 
 	return completo;
 }
 

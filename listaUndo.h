@@ -1,15 +1,17 @@
 #pragma once
 #ifndef listaUndo_h
 #define listaUndo_h
+#include "listaPosiciones.h"
 
-/*
+const int MAX_UNDO = 5; 
+
 typedef struct {
 	tListaPosiciones lista[MAX_UNDO];
 	int cont;
 } tListaUndo;
 
-inicializar(lista_undo);
-insertar_final(lista_undo, lista_pos);
-ultimos_movimientos(lista_undo);*/
+void inicializar(tListaUndo& lista_undo);
+void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos);
+void ultimos_movimientos(tListaUndo &lista_undo);
 
 #endif 
