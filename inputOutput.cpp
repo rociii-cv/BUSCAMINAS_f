@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include "juego.h"
+#include "listaUndo.h"
 
 using namespace std;
 
@@ -53,7 +54,7 @@ void comandos_especiales(tJuego& juego, int fila, int columna) {
         }
     }
     else if (fila == -3 && columna == -3) { 
-        //UNDO
+        
     }
 }
 

@@ -13,6 +13,6 @@ typedef struct {
 
 void inicializar(tListaUndo& lista_undo);
 void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos);
-tListaPosiciones ultimos_movimientos(tListaUndo &lista_undo);
+tListaPosiciones ultimos_movimientos(tListaUndo lista_undo);
 
 #endif 
