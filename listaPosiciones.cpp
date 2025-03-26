@@ -5,7 +5,7 @@ using namespace std;
 
 void inicializar(tListaPosiciones& lista_pos) {
 	lista_pos.cont = 0;
-	lista_pos = { 0 };
+	//lista_pos.lista[MAX_LISTA] = {0};
 	lista_pos.final_lista = MAX_LISTA-1; 
 }
 
