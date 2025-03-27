@@ -129,7 +129,7 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
 	if (es_valida(juego.tablero, fila, columna)) {
 		if (!es_visible(juego.tablero.datos[fila][columna]) && !esta_marcada(juego.tablero.datos[fila][columna])) {
 			descubrir_celda(juego.tablero.datos[fila][columna]);
-			insertar_final(lista_pos, fila, columna);
+			insertar_final(lista_pos, fila, columna); //en la listaPosiciones
 
 			if (esta_vacia(juego.tablero.datos[fila][columna])) { //si la celda que se seleccionó está vacía actualiza adyacentes a ella.
 				for (int i = fila - 1; i <= fila + 1; i++) {
@@ -137,7 +137,7 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
 						if (es_valida(juego.tablero, i, j) && !es_visible(juego.tablero.datos[i][j])
 							&& !esta_marcada(juego.tablero.datos[i][j])) {
 							descubrir_celda(juego.tablero.datos[i][j]);
-							insertar_final(lista_pos, fila, columna);
+							insertar_final(lista_pos, i, j);
 							if(esta_vacia(juego.tablero.datos[i][j])) descubrir_vacia(juego, i, j, lista_pos);
 						}
 					}
@@ -153,7 +153,7 @@ void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lis
 			if (es_valida(juego.tablero, i, j) && !es_visible(juego.tablero.datos[i][j])
 				&& !esta_marcada(juego.tablero.datos[i][j])) {
 				descubrir_celda(juego.tablero.datos[i][j]);
-				insertar_final(lista_pos, fila, columna);
+				insertar_final(lista_pos, i, j);
 			}
 		}
 	}

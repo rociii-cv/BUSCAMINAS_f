@@ -5,15 +5,24 @@ using namespace std;
 
 void inicializar(tListaPosiciones& lista_pos) {
 	lista_pos.cont = 0;
-	//lista_pos.lista[MAX_LISTA] = {0};
-	lista_pos.final_lista = MAX_LISTA-1; 
 }
 
 void insertar_final(tListaPosiciones& lista_pos, int x, int y) {
-	lista_pos.lista[lista_pos.final_lista].posx = x;
-	lista_pos.lista[lista_pos.final_lista].posy = y;
-	lista_pos.final_lista--; //decremento la posicion del final lista
-	lista_pos.cont++;
+	if (lista_pos.cont < MAX_LISTA) {
+		lista_pos.lista[lista_pos.cont].posx = x;
+		lista_pos.lista[lista_pos.cont].posy = y;
+		lista_pos.cont++;
+	}
+	else { //en caso de que no hay espacio desplaza hacia la izquierda y luego coloca
+		cout << "no hay espacio en lista posiciones" << endl;
+	}
+}
+
+void mostrar(tListaPosiciones lista_pos) {
+	cout << "Lista posiciones:" << endl;
+	for (int i = 0; i < lista_pos.cont; i++) {
+		cout << lista_pos.lista[i].posx << " , " << lista_pos.lista[i].posy << endl;
+	}
 }
 
 int longitud(tListaPosiciones lista_pos) {

@@ -29,6 +29,7 @@ int main() {
         pedir_pos(fila, columna);
         juega(juego, fila, columna, lista_pos);
         comandos_especiales(juego, fila, columna);
+        //mostrar(lista_pos);
 
         //repite mientras el juego no esté acabado:
         while (!esta_terminado(juego, fila, columna) && !forzar_finalizacion(fila, columna)) {
@@ -36,6 +37,7 @@ int main() {
             pedir_pos(fila, columna);
             comandos_especiales(juego, fila, columna);
             juega(juego, fila, columna, lista_pos);
+            //mostrar(lista_pos);
         }
         mostrar_juego_consola(juego); //muestra una ultima vez para que se vea la posicion de la mina explotada
 
