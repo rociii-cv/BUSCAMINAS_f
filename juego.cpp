@@ -4,6 +4,7 @@ using namespace std;
 #include "tablero.h"
 #include "celda.h"
 #include "listaPosiciones.h"
+#include "listaUndo.h"
 
 void inicializar(tJuego& juego) {
 	juego.mina_explotada = false;
@@ -125,7 +126,7 @@ void poner_mina(tJuego& juego, int fila, int columna) {
 }
 
 //Probablemente surja el stack overflow porque llama demasiadas veces a la función
-void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
+void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo) {
 	if (es_valida(juego.tablero, fila, columna)) {
 		if (!es_visible(juego.tablero.datos[fila][columna]) && !esta_marcada(juego.tablero.datos[fila][columna])) {
 			descubrir_celda(juego.tablero.datos[fila][columna]);
@@ -145,6 +146,8 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
 			}
 		}
 	}
+	insertar_final(lista_undo, lista_pos); //inserto toda la lista_posiciones de esa jugada en mi lista_undo
+	mostrar(lista_undo, lista_pos);
 }
 
 void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {

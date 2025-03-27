@@ -3,6 +3,7 @@
 using namespace std;
 #include "tablero.h"
 #include "listaPosiciones.h"
+#include "listaUndo.h"
 
 typedef struct {
 	tTablero tablero;
@@ -30,7 +31,7 @@ bool mina_explotada(const tJuego& juego, int fila, int columna);
 bool esta_terminado(const tJuego& juego, int fila, int columna);
 bool forzar_finalizacion(int fila, int columna);
 void marcar_desmarcar(tJuego& juego, int fila, int columna);
-void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos);
+void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo);
 void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos);
 
 #endif
