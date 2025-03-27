@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std; 
-#include "listaUndo.h"
 #include "juego.h"
 
 
@@ -35,16 +34,18 @@ tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
 	return lista_undo.lista[lista_undo.cont]; 
 }
 
+/*
 //volver a ocultar las celdas descubiertas (UNDO):
-void ocultar_undo(tJuego& juego, tListaUndo lista_undo) {
+void ocultarUNDO(tJuego& juego, const tListaUndo& lista_undo) {
 	tListaPosiciones lista_pos = ultimos_movimientos(lista_undo); //guardo en lista_pos el array con el ultimo movimiento de juega
 	int cont = longitud(lista_pos);								 //me devuelve la longitud del ultimo movimiento (long de lista_pos)
 	
 	for (int i = 0; i < cont; i++) {
-		//tengo que obtener la celda en específico que quiero volver a ocultar
-		// para ello puedo pedir la pos de x e y
-		//ocultar_celda(juego.tablero.datos[])
+		int x= dame_posX(lista_pos, i);
+		int y= dame_posY(lista_pos, i);
+		cout << "posX: " << x << " , posY: " << y << endl;
+		ocultar_celda(juego.tablero.datos[x][y]);
 	}
-} 
+} */
 
 

@@ -24,7 +24,7 @@ int main() {
     if (leer_archivo(juego, filename)) {
         tListaPosiciones lista_pos;
         tListaUndo lista_undo;
-       // inicializar(lista_pos);
+        inicializar(lista_pos);
         inicializar(lista_undo, lista_pos);
 
         mostrar_juego_consola(juego);
