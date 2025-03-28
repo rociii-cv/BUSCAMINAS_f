@@ -54,11 +54,10 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo lista_
         }
     }
     else if (fila == -3 && columna == -3) { 
+        cout << "Deshaciendo movimiento" << endl;
         tListaPosiciones lista_pos = (ultimos_movimientos(lista_undo));
         int cont = longitud(lista_pos);
-        mostrar(lista_pos);
 
-        cout << "cont: " << cont << endl;
         for (int i = 0; i < cont; i++) {
             int x = dame_posX(lista_pos, i);
             int y = dame_posY(lista_pos, i);

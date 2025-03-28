@@ -6,7 +6,8 @@ using namespace std;
 
 
 void inicializar(tListaUndo& lista_undo, tListaPosiciones& lista_pos) {
-	lista_undo.cont = 0; 
+	lista_undo.cont = 0;
+	inicializar(lista_pos);
 }
 
 void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos) { 
