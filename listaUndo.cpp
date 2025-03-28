@@ -35,7 +35,7 @@ void mostrar(tListaUndo lista_undo, tListaPosiciones lista_pos) {
 }
 
 tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
-	cout << "Ultimos mov" << endl << lista_undo.lista[lista_undo.cont-1].cont << endl;
+	cout << "Ultimos movimientos: " << endl << lista_undo.lista[lista_undo.cont-1].cont << endl;
 	return lista_undo.lista[lista_undo.cont-1]; 
 }
 

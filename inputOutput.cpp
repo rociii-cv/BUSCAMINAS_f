@@ -54,7 +54,7 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo lista_
         }
     }
     else if (fila == -3 && columna == -3) { 
-        cout << "Deshaciendo movimiento" << endl;
+        cout << "Deshaciendo movimiento..." << endl;
         tListaPosiciones lista_pos = (ultimos_movimientos(lista_undo));
         int cont = longitud(lista_pos);
 
