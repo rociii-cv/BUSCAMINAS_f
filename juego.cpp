@@ -147,7 +147,7 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tL
 		}
 	}
 	insertar_final(lista_undo, lista_pos); //inserto toda la lista_posiciones de esa jugada en mi lista_undo
-	//mostrar(lista_undo, lista_pos);
+	mostrar(lista_undo, lista_pos);
 }
 
 void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {

@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std; 
+
 #include "juego.h"
+#include "listaPosiciones.h"
 
 
 void inicializar(tListaUndo& lista_undo, tListaPosiciones& lista_pos) {
 	lista_undo.cont = 0; 
-	inicializar(lista_pos);
 }
 
 void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos) { 
@@ -28,24 +29,17 @@ void mostrar(tListaUndo lista_undo, tListaPosiciones lista_pos) {
 		cout << lista_pos.lista[j].posx << " , " << lista_pos.lista[j].posy
 			 << endl;
 	}
+	cout << endl 
+		<< lista_undo.lista[lista_undo.cont-1].lista[lista_pos.cont-1].posx << endl;
 }
 
 tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
+	cout << "Ultimos mov" << endl << lista_undo.lista[lista_undo.cont].cont << endl;
 	return lista_undo.lista[lista_undo.cont]; 
 }
 
-/*
-//volver a ocultar las celdas descubiertas (UNDO):
-void ocultarUNDO(tJuego& juego, const tListaUndo& lista_undo) {
-	tListaPosiciones lista_pos = ultimos_movimientos(lista_undo); //guardo en lista_pos el array con el ultimo movimiento de juega
-	int cont = longitud(lista_pos);								 //me devuelve la longitud del ultimo movimiento (long de lista_pos)
-	
-	for (int i = 0; i < cont; i++) {
-		int x= dame_posX(lista_pos, i);
-		int y= dame_posY(lista_pos, i);
-		cout << "posX: " << x << " , posY: " << y << endl;
-		ocultar_celda(juego.tablero.datos[x][y]);
-	}
-} */
+
+
+
 
 

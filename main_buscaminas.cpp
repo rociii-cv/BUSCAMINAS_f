@@ -31,13 +31,13 @@ int main() {
         int fila = 0, columna = 0;
         pedir_pos(fila, columna);
         juega(juego, fila, columna, lista_pos, lista_undo);
-        comandos_especiales(juego, fila, columna);
+        comandos_especiales(juego, fila, columna, lista_undo);
 
         //repite mientras el juego no esté acabado:
         while (!esta_terminado(juego, fila, columna) && !forzar_finalizacion(fila, columna)) {
             mostrar_juego_consola(juego);
             pedir_pos(fila, columna);
-            comandos_especiales(juego, fila, columna);
+            comandos_especiales(juego, fila, columna, lista_undo);
             juega(juego, fila, columna, lista_pos, lista_undo);
         }
         mostrar_juego_consola(juego); //muestra una ultima vez para que se vea la posicion de la mina explotada
