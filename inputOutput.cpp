@@ -129,6 +129,8 @@ void mostrar_juego_consola(const tJuego& juego) {
     // mostrar el número de jugadas del juego
     
     // mostrar cabecera 
+    cout << "             BUSCAMINAS" << endl;
+    cout <<  "          --------------" << endl;
     cout << "\t  |";
     for (int col = 0; col < juego.tablero.nCols; col++) {
         cout << LBLUE << setw(N_HUECOS) << col << RESET << '|';
