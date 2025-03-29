@@ -2,6 +2,9 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <cctype>
+#include <string>
+
 #include "juego.h"
 #include "listaUndo.h"
 #include <cctype>
@@ -35,19 +38,19 @@ bool leer_archivo(tJuego& juego, string filename) {
 }
 
 int comprobarNum(string caracter) {
-   bool valido = true; 
-   int numero; 
-   int longitud = caracter.length(); 
+    bool valido = true;
+    int numero;
+    int longitud = caracter.length();
 
-    if (caracter[0] != '-' && !isdigit(caracter[0])) valido = false; 
-    if (longitud == 1 && caracter[0] == '-') valido = false; 
+    if (caracter[0] != '-' && !isdigit(caracter[0])) valido = false;
+    if (longitud == 1 && caracter[0] == '-') valido = false;
     if (valido) {
         for (int i = 1; i < caracter.length(); i++) {
             if (!isdigit(caracter[i])) {
                 valido = false;
             }
         }
-    }  
+    }
     //si son digitos 
     if (valido) {
         numero = stoi(caracter);
@@ -55,22 +58,22 @@ int comprobarNum(string caracter) {
     else {
         numero = -10;
     }
-    return numero; 
+    return numero;
 }
 
 
 void pedir_pos(int& fila, int& columna) {
-    string strFil, strCol; 
-        cout << "Fila: ";
-        cin >> strFil;
-        fila = comprobarNum(strFil); 
-        cout << "Columna: ";
-        cin >> strCol;
-        columna = comprobarNum(strCol); 
-   
+    string strFil, strCol;
+    cout << "Fila: ";
+    cin >> strFil;
+    fila = comprobarNum(strFil);
+    cout << "Columna: ";
+    cin >> strCol;
+    columna = comprobarNum(strCol);
+
 }
 
-void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo lista_undo) {
+void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo& lista_undo) {
     if (fila == -1 && columna == -1) {
         forzar_finalizacion(fila, columna);
     }
@@ -85,16 +88,21 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo lista_
         }
     }
     else if (fila == -3 && columna == -3) { 
-        cout << "Deshaciendo movimiento..." << endl;
-        tListaPosiciones lista_pos = (ultimos_movimientos(lista_undo));
-        int cont = longitud(lista_pos);
-
-        for (int i = 0; i < cont; i++) {
-            int x = dame_posX(lista_pos, i);
-            int y = dame_posY(lista_pos, i);
-            cout << "posX: " << x << " , posY: " << y << endl;
-            ocultar_celda(juego.tablero.datos[x][y]);
+        if (lista_undo.cont < 0) {
+            cout << "MAXIMO ALCANZADO: ya no se pueden hacer mas undo" << endl;
         }
+        else {
+            cout << "Deshaciendo movimiento" << endl;
+            tListaPosiciones lista_pos = (ultimos_movimientos(lista_undo));
+            int cont = longitud(lista_pos);
+            for (int i = 0; i < cont; i++) {
+                int x = dame_posX(lista_pos, i);
+                int y = dame_posY(lista_pos, i);
+
+                ocultar_celda(juego.tablero.datos[x][y]);
+            }
+            lista_undo.cont--;
+        }      
     }
 }
 

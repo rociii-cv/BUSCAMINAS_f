@@ -23,21 +23,15 @@ void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos) {
 	}
 }
 
-void mostrar(tListaUndo lista_undo, tListaPosiciones lista_pos) {
-	cout << "Lista UNDO:" << endl;
-	cout << "Contador lista_undo: " << lista_undo.cont << endl;
-	for (int j = 0; j < lista_pos.cont; j++) {
-		cout << lista_pos.lista[j].posx << " , " << lista_pos.lista[j].posy
-			 << endl;
-	}
-	cout << endl 
-		<< lista_undo.lista[lista_undo.cont-1].lista[lista_pos.cont-1].posx << endl;
+tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
+	int cont = lista_undo.cont-1;
+    tListaPosiciones ultimaPos = lista_undo.lista[cont];
+	//cout << "cont:" << lista_undo.lista[cont].cont << endl;
+	return ultimaPos;
 }
 
-tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
-	cout << "Ultimos movimientos: " << endl << lista_undo.lista[lista_undo.cont-1].cont << endl;
-	return lista_undo.lista[lista_undo.cont-1]; 
-}
+
+
 
 
 

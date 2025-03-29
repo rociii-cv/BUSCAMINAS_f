@@ -22,13 +22,6 @@ void insertar_final(tListaPosiciones& lista_pos, int x, int y) {
 	}
 }
 
-void mostrar(tListaPosiciones lista_pos) {
-	cout << "Lista posiciones:" << endl;
-	for (int i = 0; i < lista_pos.cont; i++) {
-		cout << lista_pos.lista[i].posx << " , " << lista_pos.lista[i].posy << endl;
-	}
-}
-
 int longitud(tListaPosiciones lista_pos) {
 	return lista_pos.cont;
 }

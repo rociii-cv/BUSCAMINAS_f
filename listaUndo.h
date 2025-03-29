@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int MAX_UNDO = 50; 
+const int MAX_UNDO = 10; 
 
 typedef struct {
 	tListaPosiciones lista[MAX_UNDO];
@@ -17,6 +17,5 @@ typedef struct {
 void inicializar(tListaUndo& lista_undo, tListaPosiciones& lista_pos);
 void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos);
 tListaPosiciones ultimos_movimientos(tListaUndo lista_undo);
-void mostrar(tListaUndo lista_undo, tListaPosiciones lista_pos);
 
 #endif 
