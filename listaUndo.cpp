@@ -26,7 +26,6 @@ void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos) {
 tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
 	int cont = lista_undo.cont-1;
     tListaPosiciones ultimaPos = lista_undo.lista[cont];
-	//cout << "cont:" << lista_undo.lista[cont].cont << endl;
 	return ultimaPos;
 }
 
