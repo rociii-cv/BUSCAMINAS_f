@@ -13,8 +13,8 @@ typedef struct {
 
 void inicializar(tTablero& tablero);
 void inicializar_tablero(tTablero& tablero, int nfils, int ncols);
-//num_filas(tab);
-//num_columnas(tab);
+void num_filas(tTablero tablero, int tab);
+void num_columnas(tTablero tablero, int tab);
 tCelda dame_celda(tTablero tablero, int fila, int columna);
 bool es_valida(tTablero tablero, int fila, int columna);
 void poner_celda(tTablero& tablero, int fila, int columna, tCelda celda);

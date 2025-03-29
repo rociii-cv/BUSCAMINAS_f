@@ -4,6 +4,8 @@
 #include <fstream>
 #include "juego.h"
 #include "listaUndo.h"
+#include <cctype>
+#include <string>
 
 using namespace std;
 
@@ -32,11 +34,40 @@ bool leer_archivo(tJuego& juego, string filename) {
     return open;
 }
 
+int comprobarNum(string caracter) {
+   bool valido = true; 
+   int numero; 
+
+    if (caracter[0] != '-' && !isdigit(caracter[0])) {
+       valido = false;
+   }
+    if (valido) {
+        for (int i = 1; i < caracter.length(); i++) {
+            if (!isdigit(caracter[i])) {
+                valido = false;
+            }
+        }
+    }  
+    //si son digitos 
+    if (valido) {
+        numero = stoi(caracter);
+    }
+    else {
+        numero = -10;
+    }
+    return numero; 
+}
+
+
 void pedir_pos(int& fila, int& columna) {
-    cout << "Fila: ";
-    cin >> fila;
-    cout << "Columna: ";
-    cin >> columna;
+    string strFil, strCol; 
+        cout << "Fila: ";
+        cin >> strFil;
+        fila = comprobarNum(strFil); 
+        cout << "Columna: ";
+        cin >> strCol;
+        columna = comprobarNum(strCol); 
+   
 }
 
 void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo lista_undo) {

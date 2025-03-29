@@ -17,5 +17,6 @@ void mostrar_celda(tJuego juego, int f, int c);
 void color_numero(int numero);
 void mostrar_juego_consola(const tJuego& juego);
 bool leer_archivo(tJuego& juego, string filename);
+int comprobarNum(string caracter);
 
 #endif
