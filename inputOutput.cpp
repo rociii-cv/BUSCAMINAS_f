@@ -37,10 +37,10 @@ bool leer_archivo(tJuego& juego, string filename) {
 int comprobarNum(string caracter) {
    bool valido = true; 
    int numero; 
+   int longitud = caracter.length(); 
 
-    if (caracter[0] != '-' && !isdigit(caracter[0])) {
-       valido = false;
-   }
+    if (caracter[0] != '-' && !isdigit(caracter[0])) valido = false; 
+    if (longitud == 1 && caracter[0] == '-') valido = false; 
     if (valido) {
         for (int i = 1; i < caracter.length(); i++) {
             if (!isdigit(caracter[i])) {
