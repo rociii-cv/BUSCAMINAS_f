@@ -55,8 +55,8 @@ int comprobarNum(string caracter) {// funcion para comprobar que lo que introduc
     if (valido) {// si el string es valido
         numero = stoi(caracter);//funcion que me convierte el string en un int
     }
-    else { // si no es valido, te devuelve cualquier nº (p.e -10)
-        numero = -10;
+    else { // si no es valido, te devuelve cualquier nº (p.e -10) 
+        numero = -10;// valor negativo, distinto de -1 -2 -3 (comandos especiales), para que no se confunda con una casilla (te tiene que devolver algo si o si) 
     }
     return numero;
 
