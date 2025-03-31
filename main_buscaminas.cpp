@@ -1,3 +1,7 @@
+
+//MICAELA AGNOLINI Y ROCIO CARVAJAL
+//Grupo F
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
