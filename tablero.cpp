@@ -17,17 +17,16 @@ void inicializar_tablero(tTablero& tablero, int nfils, int ncols) {
 	}
 }
 
-/*
+/*NO LO USAMOS PORQUE CARGAMOS DIRECTAMENTE EN LA FUNCION INPUT OUTPUT
+* 
 //recibe numero de filas y columna DEL ARCHIVO (funcion InputOutput) y actualiza nfils y ncols
 void num_filas(tTablero tablero, int tab) {
-	//tablero.nFils = tab
-	tablero.nFils = 3;
+	tablero.nFils = tab;
 }
 
 void num_columnas(tTablero tablero, int tab) {
-	//tablero.nCols = tab;
-	tablero.nCols = 3;
-}
+	tablero.nCols = tab;
+}*/
 
 tCelda dame_celda(tTablero tablero, int fila, int columna) {
 	return tablero.datos[fila][columna];

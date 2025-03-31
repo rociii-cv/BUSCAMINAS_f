@@ -132,6 +132,7 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tL
 			descubrir_celda(juego.tablero.datos[fila][columna]);
 			inicializar(lista_pos); //incializo porque sino lista_pos acumula las anteriores jugadas
 			insertar_final(lista_pos, fila, columna); //en la listaPosiciones
+			juego.num_jugadas++;
 
 			if (esta_vacia(juego.tablero.datos[fila][columna])) { //si la celda que se seleccionó está vacía actualiza adyacentes a ella.
 				for (int i = fila - 1; i <= fila + 1; i++) {
@@ -146,9 +147,9 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tL
 				}
 			}
 		}
-	}
-	if (fila != -3 && columna != -3) {
-		insertar_final(lista_undo, lista_pos); //inserto toda la lista_posiciones de esa jugada en mi lista_undo
+		if (fila != -3 && columna != -3) {
+			insertar_final(lista_undo, lista_pos); //inserto toda la lista_posiciones de esa jugada en mi lista_undo
+		}
 	}
 }
 

@@ -64,10 +64,10 @@ int comprobarNum(string caracter) {
 
 void pedir_pos(int& fila, int& columna) {
     string strFil, strCol;
-    cout << "Fila: ";
+    cout << "-Fila: ";
     cin >> strFil;
     fila = comprobarNum(strFil);
-    cout << "Columna: ";
+    cout << "-Columna: ";
     cin >> strCol;
     columna = comprobarNum(strCol);
 
@@ -78,7 +78,7 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo& lista
         forzar_finalizacion(fila, columna);
     }
     else if (fila == -2 && columna == -2) {
-        cout << "Posicion que se quiere marcar o desmarcar:" << endl;
+        cout << "\nPosicion que se quiere marcar o desmarcar:" << endl << endl;;
         pedir_pos(fila, columna);
         if (esta_marcada(juego.tablero.datos[fila][columna])) {
             desmarcar_celda(juego.tablero.datos[fila][columna]);
@@ -165,11 +165,14 @@ void mostrar_celda(tJuego juego, int fila, int columna) {
 
 void mostrar_juego_consola(const tJuego& juego) {
     
-    // mostrar el número de jugadas del juego
-    
     // mostrar cabecera 
+    cout << endl;
     cout << "             BUSCAMINAS" << endl;
     cout <<  "          --------------" << endl;
+   
+    // mostrar el número de jugadas 
+    cout << "Numero de Jugadas: " << juego.num_jugadas << endl << endl;
+
     cout << "\t  |";
     for (int col = 0; col < juego.tablero.nCols; col++) {
         cout << LBLUE << setw(N_HUECOS) << col << RESET << '|';
