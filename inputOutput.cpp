@@ -37,32 +37,33 @@ bool leer_archivo(tJuego& juego, string filename) {
     return open;
 }
 
-int comprobarNum(string caracter) {
-    bool valido = true;
+int comprobarNum(string caracter) {// funcion para comprobar que lo que introduce el user
+    bool valido = true;            //es un numero valido (teneiendo en cuenta los comandos especiales)
     int numero;
-    int longitud = caracter.length();
+    int longitud = caracter.length();// para leer el array del caracter introducido
 
-    if (caracter[0] != '-' && !isdigit(caracter[0])) valido = false;
-    if (longitud == 1 && caracter[0] == '-') valido = false;
+    if (caracter[0] != '-' && !isdigit(caracter[0])) valido = false; //si el caracter es distinto de - y ademas no es numero-->FALSE
+    if (longitud == 1 && caracter[0] == '-') valido = false;//si el caracter tiene longitud 1 y es - -->FALSE (pq queremos tener en cuenta el - solo para los comandos especiales, por el solo seria una pos incorrecta)
     if (valido) {
-        for (int i = 1; i < caracter.length(); i++) {
-            if (!isdigit(caracter[i])) {
+        for (int i = 1; i < caracter.length(); i++) {// for para recorrer el array del caracter 
+            if (!isdigit(caracter[i])) { // si no tiene digito -->FALSE
                 valido = false;
             }
         }
     }
     //si son digitos 
-    if (valido) {
-        numero = stoi(caracter);
+    if (valido) {// si el string es valido
+        numero = stoi(caracter);//funcion que me convierte el string en un int
     }
-    else {
+    else { // si no es valido, te devuelve cualquier nº (p.e -10)
         numero = -10;
     }
     return numero;
+
 }
 
 
-void pedir_pos(int& fila, int& columna) {
+void pedir_pos(int& fila, int& columna) { //pedir posicion al user, llamando a la fun q comprueba si esa pos es valida (q no sea un caracter extraño)
     string strFil, strCol;
     cout << "-Fila: ";
     cin >> strFil;
@@ -75,9 +76,9 @@ void pedir_pos(int& fila, int& columna) {
 
 void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo& lista_undo) {
     if (fila == -1 && columna == -1) {
-        forzar_finalizacion(fila, columna);
+        forzar_finalizacion(fila, columna); //fun de salirse del juego antes de acabar
     }
-    else if (fila == -2 && columna == -2) {
+    else if (fila == -2 && columna == -2) { //marcar, desmarcar
         cout << "\nPosicion que se quiere marcar o desmarcar:" << endl << endl;;
         pedir_pos(fila, columna);
         if (esta_marcada(juego.tablero.datos[fila][columna])) {
@@ -87,21 +88,21 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo& lista
             marcar_celda(juego.tablero.datos[fila][columna]);
         }
     }
-    else if (fila == -3 && columna == -3) { 
+    else if (fila == -3 && columna == -3) { //hacer undo
         if (lista_undo.cont < 0) {
             cout << "MAXIMO ALCANZADO: ya no se pueden hacer mas undo" << endl;
         }
         else {
-            cout << "Deshaciendo movimiento" << endl;
+            cout << "Deshaciendo movimiento..." << endl;
             tListaPosiciones lista_pos = (ultimos_movimientos(lista_undo));
             int cont = longitud(lista_pos);
             for (int i = 0; i < cont; i++) {
                 int x = dame_posX(lista_pos, i);
                 int y = dame_posY(lista_pos, i);
 
-                ocultar_celda(juego.tablero.datos[x][y]);
+                ocultar_celda(juego.tablero.datos[x][y]);//ocultas las celdas descubiertas en el ultimo mov
             }
-            lista_undo.cont--;
+            lista_undo.cont--;//decrementas cont pq esa jugada ya no esta, la has deshecho
         }      
     }
 }
