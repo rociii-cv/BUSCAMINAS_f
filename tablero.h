@@ -1,6 +1,6 @@
 #ifndef tablero_h
 #define tablero_h
-using namespace std; 
+using namespace std;
 #include "celda.h"
 
 const int MAX_FILS = 100;

@@ -33,7 +33,7 @@ bool leer_archivo(tJuego& juego, string filename) {
             poner_mina(juego, minaFila, minaColumna);
         }
     }
-
+    archivo.close();
     return open;
 }
 
