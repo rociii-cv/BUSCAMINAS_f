@@ -5,12 +5,14 @@ using namespace std;
 #include "listaPosiciones.h"
 
 
-void inicializar(tListaUndo& lista_undo, tListaPosiciones& lista_pos) {
+void inicializar(tListaUndo& lista_undo, 
+	tListaPosiciones& lista_pos) {//inicializas lista undo al principio vacia porq no has hecho nada aun
 	lista_undo.cont = 0;
 	inicializar(lista_pos);
 }
 
-void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos) { 
+void insertar_final(tListaUndo& lista_undo, 
+	tListaPosiciones lista_pos) { //inserta la lista_pos (que tiene la ultima jugada con sus respectivas acciones) al final de la lista, (lista de listas)
 	if (lista_undo.cont < MAX_UNDO) {
 		lista_undo.lista[lista_undo.cont] = lista_pos;
 		lista_undo.cont++;
@@ -23,7 +25,7 @@ void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos) {
 	}
 }
 
-tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) {
+tListaPosiciones ultimos_movimientos(tListaUndo lista_undo) { //devuelve el ultimo elemento de la lista
 	int cont = lista_undo.cont-1;
     tListaPosiciones ultimaPos = lista_undo.lista[cont];
 	return ultimaPos;

@@ -162,13 +162,16 @@ void mostrar_celda(tJuego juego, int fila, int columna) {
     }
 }
 
+void mostrar_cabecera(tJuego juego) {
+    cout << endl;
+    cout << "            BUSCAMINAS" << endl;
+    cout << "           ------------" << endl;
+}
 
 void mostrar_juego_consola(const tJuego& juego) {
     
-    // mostrar cabecera 
-    cout << endl;
-    cout << "             BUSCAMINAS" << endl;
-    cout <<  "          --------------" << endl;
+    // mostrar cabecera FUNCION
+    mostrar_cabecera(juego); 
    
     // mostrar el número de jugadas 
     cout << "Numero de Jugadas: " << juego.num_jugadas << endl << endl;

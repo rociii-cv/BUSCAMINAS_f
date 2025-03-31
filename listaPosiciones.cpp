@@ -3,11 +3,11 @@ using namespace std;
 #include "listaPosiciones.h"
 
 
-void inicializar(tListaPosiciones& lista_pos) {
+void inicializar(tListaPosiciones& lista_pos) { //lista inicialmente vacia
 	lista_pos.cont = 0;
 }
 
-void insertar_final(tListaPosiciones& lista_pos, int x, int y) {
+void insertar_final(tListaPosiciones& lista_pos, int x, int y) { //vas insertando en la lista las posiciones que metes 
 	if (lista_pos.cont < MAX_LISTA) {
 		lista_pos.lista[lista_pos.cont].posx = x;
 		lista_pos.lista[lista_pos.cont].posy = y;
@@ -22,11 +22,11 @@ void insertar_final(tListaPosiciones& lista_pos, int x, int y) {
 	}
 }
 
-int longitud(tListaPosiciones lista_pos) {
+int longitud(tListaPosiciones lista_pos) { //longitud de la lista (cuantas pos va ocupando)
 	return lista_pos.cont;
 }
 
-int dame_posX(tListaPosiciones lista_pos, int i) {
+int dame_posX(tListaPosiciones lista_pos, int i) { //valor de posX de elemento almacenado en la pos i
 	return lista_pos.lista[i].posx;
 }
 
