@@ -11,9 +11,9 @@ typedef struct {
 	int capacidad; 
 }tListaJuegos;
 
-inicializar(lista_juegos); 
-destruye(lista_juegos); 
-insertar(lista_juegos, juego); 
+void inicializar(tListaJuegos& lista_juegos);
+void destruye(tListaJuegos& lista_juegos);
+void insertar(tListaJuegos& lista_juegos, tJuego juego); 
 numero_juego(lista_juegos); 
 es_vacia(lista_juegos); 
 dame_juego(lista_juegos, pos); 
