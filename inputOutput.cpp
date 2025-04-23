@@ -81,12 +81,16 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo& lista
     else if (fila == -2 && columna == -2) { //marcar, desmarcar
         cout << "\nPosicion que se quiere marcar o desmarcar:" << endl << endl;;
         pedir_pos(fila, columna);
-        if (esta_marcada(juego.tablero.datos[fila][columna])) {
-            desmarcar_celda(juego.tablero.datos[fila][columna]);
+
+        tCelda celda= dame_celda(juego.tablero, fila, columna);
+        if (esta_marcada(celda)) {//no se puede hacer, pq accedes a valores privados del tablero (VIOLAS PCPIO MODULARIDAD)
+
+            desmarcar_celda(celda);
         }
         else {
-            marcar_celda(juego.tablero.datos[fila][columna]);
+            marcar_celda(celda);
         }
+        poner_celda(juego.tablero, fila, columna, celda);
     }
     else if (fila == -3 && columna == -3) { //hacer undo
         if (lista_undo.cont < 0) {

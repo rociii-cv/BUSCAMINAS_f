@@ -11,12 +11,12 @@ typedef struct {
 	int capacidad; 
 }tListaJuegos;
 
-void inicializar(tListaJuegos& lista_juegos);
+void inicializar(tListaJuegos*& lista_juegos);
 void destruye(tListaJuegos& lista_juegos);
 void insertar(tListaJuegos& lista_juegos, tJuego juego); 
 int numero_juegos(tListaJuegos lista_juegos);
-es_vacia(lista_juegos); 
-dame_juego(lista_juegos, pos); 
-eliminar(lista_juegos, pos); 
+//es_vacia(lista_juegos); 
+//dame_juego(lista_juegos, pos); 
+//eliminar(lista_juegos, pos); 
 
 #endif

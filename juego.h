@@ -15,8 +15,6 @@ typedef struct {
 
 void inicializar(tJuego& juego);
 void inicializar_juego(tJuego& juego, int nfils, int ncols);
-//int dame_num_jugadas(tJuego juego);
-//int dame_num_filas(tJuego juego);
 int dame_num_columnas(tJuego juego);
 int dame_num_minas(tJuego juego);
 bool contiene_mina(tJuego juego, int fila, int columna);
@@ -33,6 +31,7 @@ bool forzar_finalizacion(int fila, int columna);
 void marcar_desmarcar(tJuego& juego, int fila, int columna);
 void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo);
 void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos);
+int calcula_nivel(tJuego juego); 
 
 #endif
 
