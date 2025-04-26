@@ -29,9 +29,7 @@ void destruye(tListaJuegos *lista_juegos) {
 void insertar(tListaJuegos* lista_juegos, tJuego *juego) {
 
 	int i = 0;
-	while ((i < lista_juegos->cont) && calcula_nivel(lista_juegos->lista[i])) {
 
-	}
 
 }
 

@@ -4,12 +4,15 @@ using namespace std;
 #include "tablero.h"
 #include "celda.h"
 
-void inicializar(tTablero& tablero) { //inicializamos el tablero a 0, para tenerlo vacío
+void inicializar(tTablero& tablero) {
 	tablero.nCols = 0;
 	tablero.nFils = 0;
 }
 
-void inicializar_tablero(tTablero& tablero, int nfils, int ncols) { //inicializamos un tablero de nfils, ncols, con las celdas vacías
+//inicializa tablero: carga sus dimensiones e ini celdas
+void inicializar_tablero(tTablero& tablero, int nfils, int ncols) { 
+	tablero.nFils = nfils;
+	tablero.nCols = ncols;
 	for (int i = 0; i < nfils; i++) {
 		for (int j = 0; j < ncols; j++) {
 			inicializar(tablero.datos[i][j]); //llamamos a INICIALIZAR de celda.cpp
@@ -21,15 +24,15 @@ int num_filas(tTablero tab) {
 	return tab.nFils;
 }
 
-int num_columnas(tTablero &tab) {
+int num_columnas(tTablero tab) {
 	return tab.nCols;
 }
 
-tCelda dame_celda(tTablero tablero, int fila, int columna) { //devuelve la celda de una determinada posicion (tiene q ser correcta)
+tCelda dame_celda(tTablero tablero, int fila, int columna) { 
 	return tablero.datos[fila][columna];
 }
 
-bool es_valida(tTablero tablero, int fila, int columna) { //devuelve true si la posicion es correcta (no se sale del tablero)
+bool es_valida(tTablero tablero, int fila, int columna) {
 	bool valida = false;
 	if (fila < tablero.nFils && fila >= 0) {
 		if (columna < tablero.nCols && columna >= 0) {
