@@ -144,7 +144,6 @@ void mostrar_separador(tJuego juego) {
 
 void mostrar_celda(tJuego &juego, int fila, int columna) {
     
-   // tCelda celda = juego.tablero.datos[fila][columna];
     tCelda celda = dame_celda(juego.tablero, fila, columna);
 
     if (!celda.visible && !celda.marcada) { //si está oculta y no marcada

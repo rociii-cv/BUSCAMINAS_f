@@ -23,10 +23,10 @@ int dame_num_jugadas(const tJuego& juego) { //devuelve las jugadas q lleva el ju
 }
 
 int dame_num_filas(tJuego juego) { //devuelve las filas q tien el tablero 
-	return juego.tablero.nFils; 
+	return num_filas(juego.tablero);
 }
 int dame_num_columnas(tJuego juego) {//devuelve las columnas que tiene el tablero
-	return juego.tablero.nCols;
+	return num_columnas(juego.tablero);
 }
 int dame_num_minas(tJuego juego){//devuelve el nº de minas que hay en el juego
 	return juego.num_minas; 
@@ -34,27 +34,32 @@ int dame_num_minas(tJuego juego){//devuelve el nº de minas que hay en el juego
 
 //las siguientes funciones utilizan funciones de celda.cpp 
 bool contiene_mina(tJuego juego, int fila, int columna) { //devuelve si la pos es mina, tJuego-->struct dentro 
-	return (es_mina(juego.tablero.datos[fila][columna])); //tTablero-->struct (tCelda matriz y nfils, ncols)
+	tCelda celda= dame_celda(juego.tablero, fila, columna);
+	return (es_mina(celda)); //tTablero-->struct (tCelda matriz y nfils, ncols)
 }
 
 bool es_visible(tJuego juego,int fila, int columna) { //devuelve si la pos esta visible
-	return (es_visible(juego.tablero.datos[fila][columna])); 
+	tCelda celda = dame_celda(juego.tablero, fila, columna);
+	return (es_visible(celda)); 
 }
 
-bool esta_marcada(tJuego juego, int fila,int columna){ //devuelve si la pos esta marcada
-	return (esta_marcada(juego.tablero.datos[fila][columna]));
+bool esta_marcada(tJuego &juego, int fila,int columna){ //devuelve si la pos esta marcada
+	tCelda celda = dame_celda(juego.tablero, fila, columna);
+	return (esta_marcada(celda));
 }
 
 bool esta_vacia(tJuego juego, int fila, int columna) { //devuelve si la pos esta vacia
-	return (esta_vacia(juego.tablero.datos[fila][columna]));
+	tCelda celda = dame_celda(juego.tablero, fila, columna);
+	return (esta_vacia(celda));
 }
 bool contiene_numero(tJuego juego, int fila, int columna) {//devuelve si la pos tiene nº
-	return (contiene_numero(juego.tablero.datos[fila][columna]));
+	tCelda celda = dame_celda(juego.tablero, fila, columna);
+	return (contiene_numero(celda));
 }
-bool dame_numero(tJuego juego,int fila, int columna) { //te devuleve el nº que contiene la pos 
-	return (dame_numero(juego.tablero.datos[fila][columna]));
+bool dame_numero(tJuego &juego,int fila, int columna) { //te devuleve el nº que contiene la pos 
+	tCelda celda = dame_celda(juego.tablero, fila, columna);
+	return (dame_numero(celda));
 }
-// 
 
 bool esta_completo(tJuego juego) { 
 	bool completo = true; 
@@ -235,20 +240,7 @@ void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lis
 			}
 		}
 	}
-	/*
-	for (int i = fila - 1; i <= fila + 1; i++) { //fula -1 (para que se corresponda con la pos insertada, pq matriz empieza en 0)
-		for (int j = columna - 1; j <= columna + 1; j++) {
-			if (es_valida(juego.tablero, i, j) && !es_visible(juego.tablero.datos[i][j])
-				&& !esta_marcada(juego.tablero.datos[i][j])) {
-				descubrir_celda(juego.tablero.datos[i][j]);
-				insertar_final(lista_pos, i, j); //añades jugada
-			}
-		}
-	}*/
 }
-
-
-
 
 /*
 int calcula_nivel(tJuego *juego) {
