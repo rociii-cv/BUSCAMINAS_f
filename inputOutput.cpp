@@ -142,10 +142,10 @@ void mostrar_separador(tJuego juego) {
     cout << endl;
 }
 
-void mostrar_celda(tJuego juego, int fila, int columna) {
+void mostrar_celda(tJuego &juego, int fila, int columna) {
     
-    tCelda celda = juego.tablero.datos[fila][columna];
-    //tCelda celda = dame_celda(juego.tablero, fila, columna);
+   // tCelda celda = juego.tablero.datos[fila][columna];
+    tCelda celda = dame_celda(juego.tablero, fila, columna);
 
     if (!celda.visible && !celda.marcada) { //si está oculta y no marcada
         cout << BG_GRAY << GRAY << N_HUECOS << setfill(' ') << ' ' << RESET;
@@ -184,7 +184,7 @@ void mostrar_cabecera(tJuego juego) {
     cout << "           ------------" << endl;
 }
 
-void mostrar_juego_consola(const tJuego& juego) {
+void mostrar_juego_consola(tJuego &juego) {
     
     // mostrar cabecera FUNCION
     mostrar_cabecera(juego); 

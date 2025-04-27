@@ -20,11 +20,11 @@ void inicializar_tablero(tTablero& tablero, int nfils, int ncols) {
 	}
 }
 
-int num_filas(tTablero tab) {
+int num_filas(const tTablero &tab) {
 	return tab.nFils;
 }
 
-int num_columnas(tTablero tab) {
+int num_columnas(const tTablero &tab) {
 	return tab.nCols;
 }
 
