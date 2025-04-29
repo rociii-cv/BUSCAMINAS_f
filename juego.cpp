@@ -78,7 +78,7 @@ bool esta_completo(tJuego juego) {
 	return completo;
 }
 
-bool mina_explotada(const tJuego& juego, int fila, int columna) {
+bool mina_explotada(tJuego& juego, int fila, int columna) {
 	bool siMina, siExplotada=false;
 	tCelda celda= dame_celda(juego.tablero, fila, columna);
 	siMina = es_mina(celda);
@@ -89,7 +89,7 @@ bool mina_explotada(const tJuego& juego, int fila, int columna) {
 }
 
 //se termina si explotas la mina o si ganaste (completo el tablero sin contar minas)
-bool esta_terminado(const tJuego& juego, int fila, int columna) {
+bool esta_terminado(tJuego& juego, int fila, int columna) {
 	bool siTerminada = false; 
 	if ((esta_completo(juego)) || (mina_explotada(juego, fila, columna))) siTerminada = true; 
 	return siTerminada;
@@ -115,26 +115,33 @@ void marcar_desmarcar(tJuego& juego, int fila, int columna) { //si celda marcada
 }
 
 void poner_mina(tJuego& juego, int fila, int columna) {
+
 	tCelda celda = dame_celda(juego.tablero, fila, columna);
+
 	if (!es_mina(celda) && es_valida(juego.tablero, fila, columna)) { //chequeo posicion válida y que no contenga mina
+		
 		poner_mina(celda); //estado de la celda = MINA
+		poner_celda(juego.tablero, fila, columna, celda); //Dejo de trabajar con el aux
 
 		//Actualiza posiciones vecinas (numeros):
 		for (int i = fila - 1; i <= fila + 1; i++) {
 			for (int j = columna - 1; j <= columna + 1; j++) {
+
 				tCelda celdaVecina = dame_celda(juego.tablero, i, j);
+
 				if (!es_mina(celdaVecina) && es_valida(juego.tablero, i, j)) { //mientras que la celda NO sea MINA
+					
 					if (esta_vacia(celdaVecina)) { //si celda esta VACIA pone estado en NUMERO y le asigna un 1
 						poner_numero(celdaVecina, 1);
+						
 					}
 					else {
-						celdaVecina.numero = dame_numero(juego.tablero.datos[i][j]) + 1; //suma 1 al numero que ya tenía la celda
+						celdaVecina.numero = dame_numero(celdaVecina) + 1; //suma 1 al numero que ya tenía la celda
 					}
 					poner_celda(juego.tablero, i, j, celdaVecina);
 				}
 			}
 		}
-		poner_celda(juego.tablero, fila, columna, celda); //Dejo de trabajar con el aux
 	}
 }
 
@@ -203,16 +210,18 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tL
 	if (es_valida(juego.tablero, fila, columna)) {				// ver su valida la pos 
 
 		if (!es_visible(celda) && !esta_marcada(celda)) {		// si no marcada y no visible
-			descubrir_celda(celda);								//descubre celda
-			poner_celda(juego.tablero, fila, columna, celda);
+			
+			if (esta_vacia(celda)) {
+				descubrir_vacia(juego, fila, columna, lista_pos);
+			}
+			else {
+				descubrir_celda(celda);								//descubre celda
+				poner_celda(juego.tablero, fila, columna, celda);
 
-			inicializar(lista_pos);								//incializo porque sino lista_pos acumula las anteriores jugadas
-			insertar_final(lista_pos, fila, columna);		    //añades jugada en la listaPosiciones
-			juego.num_jugadas++;								//suma jugada
-
-		}
-		if (esta_vacia(celda)) {
-			descubrir_vacia(juego, fila, columna, lista_pos);
+				inicializar(lista_pos);								//incializo porque sino lista_pos acumula las anteriores jugadas
+				insertar_final(lista_pos, fila, columna);		    //añades jugada en la listaPosiciones
+				juego.num_jugadas++;
+			}
 		}
 	}
 	if (fila != -3 && columna != -3) { //comando para hacer el undo
@@ -220,33 +229,44 @@ void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tL
 	}
 }
 
-
-void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {//descubres la celda, funs de celda.cpp (descu) y de listapos
+//si se llama a esta función significa que la celda que estaba en la pos [fila][columna] estaba vacía
+//Asi que se busca descubrir sus 8 adyacentes (si entre esas 8 hay otra vacía --> f. recursiva)
+void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {
 	
-	for (int i = fila - 1; i <= fila + 1; i++) {
-		for (int j = columna - 1; j <= columna + 1; j++) {
+	if (es_valida(juego.tablero, fila, columna)) {
 
-			tCelda celdaAdy = dame_celda(juego.tablero, i, j);
-			if (es_valida(juego.tablero, i, j) && !es_visible(celdaAdy) && !esta_marcada(celdaAdy)) {
+		tCelda celda = dame_celda(juego.tablero, fila, columna);
 
-				descubrir_celda(celdaAdy);
-				poner_celda(juego.tablero, i, j, celdaAdy);
-				insertar_final(lista_pos, i, j); //voy añadiendo las posiciones descubiertas en la lista_pos
+		descubrir_celda(celda);
+		poner_celda(juego.tablero, fila, columna, celda);
+		insertar_final(lista_pos, fila, columna); //voy añadiendo las posiciones descubiertas en la lista_pos
 
-				//RECURSIÓN:
-				if (esta_vacia(celdaAdy)) {
-					descubrir_vacia(juego, i, j, lista_pos); //si vacia-->descubres
+		for (int i = fila - 1; i <= fila + 1; i++) {
+			for (int j = columna - 1; j <= columna + 1; j++) {
+
+				if (es_valida(juego.tablero, i, j)) {
+
+					tCelda celdaAdy = dame_celda(juego.tablero, i, j);
+
+					if (esta_vacia(celdaAdy) && !es_visible(celdaAdy)) {
+						descubrir_vacia(juego, i, j, lista_pos);
+					}
+					else if (contiene_numero(celdaAdy) && !es_visible(celdaAdy)){
+
+						descubrir_celda(celdaAdy);
+						poner_celda(juego.tablero, i, j, celdaAdy);
+						insertar_final(lista_pos, i, j); 
+					}
 				}
 			}
 		}
 	}
 }
 
-/*
 int calcula_nivel(tJuego *juego) {
 
 	int dimension = num_filas(juego->tablero) * num_columnas(juego->tablero);
 	int dificultad = dimension / juego->num_minas;
 
 	return dificultad;
-}*/
+}

@@ -25,13 +25,13 @@ bool contiene_numero(tJuego juego, int fila, int columna);
 bool dame_numero(tJuego &juego, int fila, int columna);
 bool esta_completo(tJuego juego);
 void poner_mina(tJuego& juego, int fila, int columna);
-bool mina_explotada(const tJuego& juego, int fila, int columna);
-bool esta_terminado(const tJuego& juego, int fila, int columna);
+bool mina_explotada(tJuego& juego, int fila, int columna);
+bool esta_terminado(tJuego& juego, int fila, int columna);
 bool forzar_finalizacion(int fila, int columna);
 void marcar_desmarcar(tJuego& juego, int fila, int columna);
 void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo);
 void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos);
-//int calcula_nivel(tJuego juego); 
+int calcula_nivel(tJuego juego); 
 
 #endif
 

@@ -31,6 +31,7 @@ bool leer_archivo(tJuego& juego, string filename) {
 
         for (int i = 1; i <= juego.num_minas; i++) {
             int minaFila, minaColumna;
+
             archivo>> minaFila >> minaColumna;
             poner_mina(juego, minaFila, minaColumna);
         }

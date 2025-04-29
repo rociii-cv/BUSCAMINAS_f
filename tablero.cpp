@@ -28,11 +28,11 @@ int num_columnas(const tTablero &tab) {
 	return tab.nCols;
 }
 
-tCelda dame_celda(tTablero tablero, int fila, int columna) { 
+tCelda dame_celda(tTablero &tablero, int fila, int columna) { 
 	return tablero.datos[fila][columna];
 }
 
-bool es_valida(tTablero tablero, int fila, int columna) {
+bool es_valida(tTablero& tablero, int fila, int columna) {
 	bool valida = false;
 	if (fila < tablero.nFils && fila >= 0) {
 		if (columna < tablero.nCols && columna >= 0) {
