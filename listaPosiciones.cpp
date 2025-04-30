@@ -48,3 +48,27 @@ int dame_posX(tListaPosiciones *lista_pos, int i) { //valor de posX de elemento 
 int dame_posY(tListaPosiciones *lista_pos, int i) {
 	return lista_pos->lista[i].posy;
 }
+
+void destruye(tListaPosiciones *lista_posiciones) {
+
+	delete[] lista_posiciones->lista;
+}
+
+void redimensionar(tListaPosiciones*& lista_pos) {
+
+	lista_pos->capacidad * 2; //redimensiono al doble
+
+	//creo nuevo array dimensionado
+	tPosicion* nuevoArray= new tPosicion[lista_pos->capacidad];
+
+	//copio info en el nuevo array
+	for (int i = 0; i < lista_pos->cont; i++) {
+		nuevoArray->posx = lista_pos->lista[i].posx;
+		nuevoArray->posy = lista_pos->lista[i].posy;
+	}
+
+	//borro array antiguo:
+	destruye(lista_pos);
+
+	lista_pos->lista = nuevoArray; //hago que apunte a la misma direc del nuevo array;
+}
