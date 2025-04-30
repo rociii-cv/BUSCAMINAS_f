@@ -20,6 +20,7 @@ void insertar_final(tListaPosiciones *lista_pos, int x, int y);
 int longitud(tListaPosiciones *lista_pos);
 int dame_posX(tListaPosiciones *lista_pos, int i);
 int dame_posY(tListaPosiciones *lista_pos, int i);
-
+void destruye(tListaPosiciones* lista_posiciones);
+void redimensionar(tListaPosiciones*& lista_pos);
 #endif
 
