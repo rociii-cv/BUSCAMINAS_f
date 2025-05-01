@@ -3,7 +3,7 @@ using namespace std;
 
 #include "listaJuegos.h"
 
-void inicializar(tListaJuegos lista_juegos) { //lista de juegos inicialmente vacia
+void inicializar(tListaJuegos &lista_juegos) { //lista de juegos inicialmente vacia
 	
 	lista_juegos.cont = 0;
 	lista_juegos.capacidad = MAX_JUEGOS;

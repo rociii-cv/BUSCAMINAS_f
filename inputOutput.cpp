@@ -44,7 +44,7 @@ bool leer_archivo(tJuego& juego, string filename) {
     return open;
 }
 
-bool cargar_juegos(tListaJuegos lista_juegos) {
+bool cargar_juegos(tListaJuegos &lista_juegos) {
     bool carga = true;
 
     cout << "Nombre archivo Lista de juegos: ";
@@ -76,7 +76,9 @@ bool cargar_juegos(tListaJuegos lista_juegos) {
                 poner_mina(*ptr, posx, posy); //*ptr equivale a pasar el juego por referencia
             }
 
-            lista_juegos.lista[i] = ptr;
+            if (lista_juegos.cont < lista_juegos.capacidad) {
+                lista_juegos.lista[i] = ptr;
+            }
             lista_juegos.cont++;
         }
     }
@@ -93,9 +95,9 @@ void mostrar_juegos(tListaJuegos lista_juegos) {
 
     for (int i = 0; i < lista_juegos.cont; i++) {
         cout << "Juego " << lista_juegos.cont << ":" << endl;
-        cout << "   Dimension: " << dame_num_filas(*lista_juegos.lista[i]) << " x "
-            << dame_num_columnas(*lista_juegos.lista[i]) << endl;
-        cout << "   Minas: " << dame_num_minas(*lista_juegos.lista[i]) << endl;
+        cout << "   Dimension: " << dame_num_filas(*(lista_juegos.lista[i])) << " x ";
+        cout << dame_num_columnas(*(lista_juegos.lista[i])) << endl;
+        cout << "   Minas: " << dame_num_minas(*(lista_juegos.lista[i])) << endl;
     }
 }
 

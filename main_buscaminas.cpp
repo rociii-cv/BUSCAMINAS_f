@@ -24,9 +24,9 @@ int main() {
   
     inicializar(juego); 
 
-    cout << "NOMBRE ARCHIVO: ";
+    /*cout << "NOMBRE ARCHIVO: ";
     string filename;
-    cin >> filename;
+    cin >> filename;*/
 
     tListaJuegos lista_juegos{};
 

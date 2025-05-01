@@ -20,7 +20,7 @@ void mostrar_juego_consola(tJuego& juego);
 bool leer_archivo(tJuego& juego, string filename);
 int comprobarNum(string caracter);
 void mostrar_cabecera(tJuego juego); 
-bool cargar_juegos(tListaJuegos lista_juegos);
+bool cargar_juegos(tListaJuegos& lista_juegos);
 void mostrar_juegos(tListaJuegos lista_juegos);
 bool guardad_juegos(tListaJuegos* lista_juegos);
 
