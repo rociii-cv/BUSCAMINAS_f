@@ -263,10 +263,10 @@ void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lis
 	}
 }
 
-int calcula_nivel(tJuego *juego) {
+int calcula_nivel(tJuego juego) {
 
-	int dimension = num_filas(juego->tablero) * num_columnas(juego->tablero);
-	int dificultad = dimension / juego->num_minas;
+	int dimension = num_filas(juego.tablero) * num_columnas(juego.tablero);
+	int dificultad = dimension / juego.num_minas;
 
-	return dificultad;
+	return dificultad; //cuanto mayor es el número más fácil es el juego
 }
