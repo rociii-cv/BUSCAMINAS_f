@@ -4,6 +4,7 @@
 #include "colors.h"
 #include "juego.h"
 #include "listaUndo.h"
+#include "listaJuegos.h"
 #include <fstream>
 
 const int N_HUECOS = 2; // huecos a dejar en el formato de las celdas.
@@ -19,5 +20,8 @@ void mostrar_juego_consola(tJuego& juego);
 bool leer_archivo(tJuego& juego, string filename);
 int comprobarNum(string caracter);
 void mostrar_cabecera(tJuego juego); 
+bool cargar_juegos(tListaJuegos lista_juegos);
+void mostrar_juegos(tListaJuegos lista_juegos);
+bool guardad_juegos(tListaJuegos* lista_juegos);
 
 #endif

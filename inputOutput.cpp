@@ -7,23 +7,22 @@
 
 #include "juego.h"
 #include "listaUndo.h"
+#include "listaJuegos.h"
 #include <cctype>
 #include <string>
 
 using namespace std;
 
-
 const char CHAR_MINA = '*';  // Mina
 
-//LEE ARCHIVO INICIAL
+
 bool leer_archivo(tJuego& juego, string filename) {
+
     bool open = true;
-    ifstream archivo(filename);
-    if (!archivo) {
-        cerr << "Error al abrir el archivo " << filename << endl;
-        open = false;
-    }
-    if (open) {
+    ifstream archivo;
+    archivo.open(filename);
+
+    if (archivo.is_open()) {
 
         int fils, cols;
         archivo >> fils >> cols >> juego.num_minas;
@@ -32,43 +31,127 @@ bool leer_archivo(tJuego& juego, string filename) {
         for (int i = 1; i <= juego.num_minas; i++) {
             int minaFila, minaColumna;
 
-            archivo>> minaFila >> minaColumna;
+            archivo >> minaFila >> minaColumna;
             poner_mina(juego, minaFila, minaColumna);
         }
+    }
+    else {
+        cout << "Error al abrir el archivo " << filename << endl;
+        open = false;
     }
 
     archivo.close();
     return open;
 }
 
-int comprobarNum(string caracter) {// funcion para comprobar que lo que introduce el user
-    bool valido = true;            //es un numero valido (teneiendo en cuenta los comandos especiales)
+bool cargar_juegos(tListaJuegos lista_juegos) {
+    bool carga = true;
+
+    cout << "Nombre archivo Lista de juegos: ";
+    string file;
+    cin >> file;
+
+    ifstream archivo;
+    archivo.open(file);
+
+    if (archivo.is_open()) {
+
+        int num_juegos, dimFils, dimCols, num_minas, posx, posy;
+
+        archivo >> num_juegos; //esto no hace falta guardarlo en la lista
+
+        for (int i = 0; i < num_juegos; i++) {
+            
+            tJuego* ptr;
+            ptr = new tJuego;
+
+            archivo >> dimFils >> dimCols;
+            inicializar_tablero(ptr->tablero, dimFils, dimCols);
+
+            archivo >> num_minas; 
+            ptr->num_minas = num_minas;
+
+            for (int j = 0; j < num_minas; j++) {
+                archivo >> posx >> posy;
+                poner_mina(*ptr, posx, posy); //*ptr equivale a pasar el juego por referencia
+            }
+
+            lista_juegos.lista[i] = ptr;
+            lista_juegos.cont++;
+        }
+    }
+    else {
+        cout << "Error abriendo lista de juegos" << endl;
+        carga = false;
+    }
+    return carga;
+}
+
+void mostrar_juegos(tListaJuegos lista_juegos) {
+
+    cout << "Mostrando lista de jeugos por orden de dificultad..." << endl;
+
+    for (int i = 0; i < lista_juegos.cont; i++) {
+        cout << "Juego " << lista_juegos.cont << ":" << endl;
+        cout << "   Dimension: " << dame_num_filas(*lista_juegos.lista[i]) << " x "
+            << dame_num_columnas(*lista_juegos.lista[i]) << endl;
+        cout << "   Minas: " << dame_num_minas(*lista_juegos.lista[i]) << endl;
+    }
+}
+
+bool guardad_juegos(tListaJuegos* lista_juegos) {
+    bool carga = true;
+
+    cout << "Nombre de fichero para almacenar juegos: ";
+    string fichero;
+    cin >> fichero;
+
+    ofstream archivo;
+    archivo.open(fichero);
+
+    if (archivo.is_open()) {
+
+
+
+
+
+    }
+    else {
+        cout << "Error abriendo archivo " << fichero << endl;
+        carga = false;
+    }
+
+    archivo.close();
+    return carga;
+}
+
+int comprobarNum(string caracter) {
+    bool valido = true;  
     int numero;
-    int longitud = caracter.length();// para leer el array del caracter introducido
+    int longitud = caracter.length(); 
 
     if (caracter[0] != '-' && !isdigit(caracter[0])) valido = false; //si el caracter es distinto de - y ademas no es numero-->FALSE
-    if (longitud == 1 && caracter[0] == '-') valido = false;//si el caracter tiene longitud 1 y es - -->FALSE (pq queremos tener en cuenta el - solo para los comandos especiales, por el solo seria una pos incorrecta)
+    if (longitud == 1 && caracter[0] == '-') valido = false;        //si el caracter tiene longitud 1 y es - -->FALSE (pq queremos tener en cuenta el - solo para los comandos especiales, por el solo seria una pos incorrecta)
     
     if (valido) {
-        for (int i = 1; i < caracter.length(); i++) {// for para recorrer el array del caracter 
+        for (int i = 1; i < caracter.length(); i++) {
             if (!isdigit(caracter[i])) { // si no tiene digito -->FALSE
                 valido = false;
             }
         }
     }
     //si son digitos 
-    if (valido) {// si el string es valido
-        numero = stoi(caracter);//funcion que me convierte el string en un int
+    if (valido) {
+        numero = stoi(caracter); //funcion que me convierte el string en un int
     }
-    else { // si no es valido, te devuelve cualquier nº (p.e -10) 
-        numero = -10;// valor negativo, distinto de -1 -2 -3 (comandos especiales), para que no se confunda con una casilla (te tiene que devolver algo si o si) 
+    else {
+        numero = -10; 
     }
     return numero;
-
 }
 
 
-void pedir_pos(int& fila, int& columna) { //pedir posicion al user, llamando a la fun q comprueba si esa pos es valida (q no sea un caracter extraño)
+void pedir_pos(int& fila, int& columna) { 
     string strFil, strCol;
     cout << "-Fila: ";
     cin >> strFil;
@@ -89,7 +172,7 @@ void comandos_especiales(tJuego& juego, int fila, int columna, tListaUndo& lista
         pedir_pos(fila, columna);
 
         tCelda celda= dame_celda(juego.tablero, fila, columna);
-        if (esta_marcada(celda)) {//no se puede hacer, pq accedes a valores privados del tablero (VIOLAS PCPIO MODULARIDAD)
+        if (esta_marcada(celda)) {
 
             desmarcar_celda(celda);
         }

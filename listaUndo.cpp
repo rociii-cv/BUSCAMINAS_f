@@ -5,10 +5,9 @@ using namespace std;
 #include "listaPosiciones.h"
 
 
-void inicializar(tListaUndo& lista_undo, 
-	tListaPosiciones& lista_pos) {//inicializas lista undo al principio vacia porq no has hecho nada aun
+void inicializar(tListaUndo& lista_undo) {//inicializas lista undo al principio vacia porq no has hecho nada aun
 	lista_undo.cont = 0;
-	inicializar(lista_pos);
+	
 }
 
 void insertar_final(tListaUndo& lista_undo, 

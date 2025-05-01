@@ -15,8 +15,9 @@ typedef struct {
 
 void inicializar(tJuego& juego);
 void inicializar_juego(tJuego& juego, int nfils, int ncols);
+int dame_num_filas(tJuego &juego);
 int dame_num_columnas(tJuego &juego);
-int dame_num_minas(tJuego juego);
+int dame_num_minas(tJuego &juego);
 bool contiene_mina(tJuego juego, int fila, int columna);
 bool es_visible(tJuego juego, int fila, int columna);
 bool esta_marcada(tJuego juego, int fila, int columna);

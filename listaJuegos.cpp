@@ -3,8 +3,16 @@ using namespace std;
 
 #include "listaJuegos.h"
 
-void inicializar(tListaJuegos*& lista_juegos) { //lista de juegos inicialmente vacia
+void inicializar(tListaJuegos lista_juegos) { //lista de juegos inicialmente vacia
 	
+	lista_juegos.cont = 0;
+	lista_juegos.capacidad = MAX_JUEGOS;
+	lista_juegos.lista = new tJuego * [lista_juegos.capacidad]; //creo array de datos dinámicos
+}
+
+/*
+void inicializar(tListaJuegos*& lista_juegos) { //lista de juegos inicialmente vacia
+
 	//Reservo espacio en memoria para la estructura tListaJuegos
 	if (lista_juegos == NULL) { //chequeo que no apunte ya a una direccion
 		lista_juegos = new tListaJuegos;
@@ -13,7 +21,7 @@ void inicializar(tListaJuegos*& lista_juegos) { //lista de juegos inicialmente v
 	lista_juegos->cont = 0;
 	lista_juegos->capacidad = MAX_JUEGOS;
 	lista_juegos->lista = new tJuego * [lista_juegos->capacidad]; //creo array de datos dinámicos
-}
+}*/
 
 void destruye(tListaJuegos *lista_juegos) { 
 

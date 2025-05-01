@@ -14,7 +14,7 @@ typedef struct {
 } tListaUndo;
 
 
-void inicializar(tListaUndo& lista_undo, tListaPosiciones& lista_pos);
+void inicializar(tListaUndo& lista_undo);
 void insertar_final(tListaUndo& lista_undo, tListaPosiciones lista_pos);
 tListaPosiciones ultimos_movimientos(tListaUndo lista_undo);
 

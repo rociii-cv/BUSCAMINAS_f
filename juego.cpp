@@ -22,13 +22,15 @@ int dame_num_jugadas(const tJuego& juego) { //devuelve las jugadas q lleva el ju
 	return juego.num_jugadas;
 }
 
-int dame_num_filas(tJuego juego) { //devuelve las filas q tien el tablero 
+int dame_num_filas(tJuego &juego) { //devuelve las filas q tien el tablero 
 	return num_filas(juego.tablero);
 }
-int dame_num_columnas(tJuego juego) {//devuelve las columnas que tiene el tablero
+
+int dame_num_columnas(tJuego &juego) {//devuelve las columnas que tiene el tablero
 	return num_columnas(juego.tablero);
 }
-int dame_num_minas(tJuego juego){//devuelve el nº de minas que hay en el juego
+
+int dame_num_minas(tJuego &juego){//devuelve el nº de minas que hay en el juego
 	return juego.num_minas; 
 }
 
@@ -120,20 +122,18 @@ void poner_mina(tJuego& juego, int fila, int columna) {
 
 	if (!es_mina(celda) && es_valida(juego.tablero, fila, columna)) { //chequeo posicion válida y que no contenga mina
 		
-		poner_mina(celda); //estado de la celda = MINA
-		poner_celda(juego.tablero, fila, columna, celda); //Dejo de trabajar con el aux
+		poner_mina(celda); 
+		poner_celda(juego.tablero, fila, columna, celda); 
 
 		//Actualiza posiciones vecinas (numeros):
 		for (int i = fila - 1; i <= fila + 1; i++) {
 			for (int j = columna - 1; j <= columna + 1; j++) {
 
-				tCelda celdaVecina = dame_celda(juego.tablero, i, j);
+				if (es_valida(juego.tablero, i, j) && !es_mina(dame_celda(juego.tablero, i, j))) {
+					tCelda celdaVecina = dame_celda(juego.tablero, i, j);
 
-				if (!es_mina(celdaVecina) && es_valida(juego.tablero, i, j)) { //mientras que la celda NO sea MINA
-					
 					if (esta_vacia(celdaVecina)) { //si celda esta VACIA pone estado en NUMERO y le asigna un 1
 						poner_numero(celdaVecina, 1);
-						
 					}
 					else {
 						celdaVecina.numero = dame_numero(celdaVecina) + 1; //suma 1 al numero que ya tenía la celda
@@ -144,64 +144,6 @@ void poner_mina(tJuego& juego, int fila, int columna) {
 		}
 	}
 }
-
-/*
-void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo) { //intenta descubrir la celda de la pos marcada
-	
-	tCelda celda = dame_celda(juego.tablero, fila, columna);
-
-	if (es_valida(juego.tablero, fila, columna)) {				// ver su valida la pos 
-
-		if (!es_visible(celda) && !esta_marcada(celda)) {		// si no marcada y no visible
-			descubrir_celda(celda);								//descubre celda
-			poner_celda(juego.tablero, fila, columna, celda); 
-
-			inicializar(lista_pos);								//incializo porque sino lista_pos acumula las anteriores jugadas
-			insertar_final(lista_pos, fila, columna);		    //añades jugada en la listaPosiciones
-			juego.num_jugadas++;								//suma jugada
-
-			
-			if (esta_vacia(celda)) {							//si la celda que se seleccionó está vacía actualiza adyacentes a ella.
-
-				for (int i = fila - 1; i <= fila + 1; i++) {
-					for (int j = columna - 1; j <= columna + 1; j++) {
-
-						tCelda celdaAdy = dame_celda(juego.tablero, i, j); 
-						if (es_valida(juego.tablero, i, j) && !es_visible(celdaAdy) && !esta_marcada(celdaAdy)) {
-
-							descubrir_celda(celdaAdy);
-							poner_celda(juego.tablero, i, j, celdaAdy);
-							insertar_final(lista_pos, i, j); //voy añadiendo las posiciones descubiertas en la lista_pos
-
-							//RECURSIÓN:
-							if (esta_vacia(celdaAdy)) {
-								descubrir_vacia(juego, i, j, lista_pos); //si vacia-->descubres
-							}
-						}
-					}
-				}
-			}
-			
-		}
-		
-	}
-	if (fila != -3 && columna != -3) { //comando para hacer el undo
-		insertar_final(lista_undo, lista_pos); //inserto toda la lista_posiciones de esa jugada en mi lista_undo
-	}
-}
-
-void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos) {//descubres la celda, funs de celda.cpp (descu) y de listapos
-	for (int i = fila - 1; i <= fila + 1; i++) { //fula -1 (para que se corresponda con la pos insertada, pq matriz empieza en 0)
-		for (int j = columna - 1; j <= columna + 1; j++) {
-			if (es_valida(juego.tablero, i, j) && !es_visible(juego.tablero.datos[i][j])
-				&& !esta_marcada(juego.tablero.datos[i][j])) {
-				descubrir_celda(juego.tablero.datos[i][j]);
-				insertar_final(lista_pos, i, j); //añades jugada
-			}
-		}
-	}
-}*/
-
 
 void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo) { //intenta descubrir la celda de la pos marcada
 
