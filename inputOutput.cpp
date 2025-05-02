@@ -16,34 +16,33 @@ using namespace std;
 const char CHAR_MINA = '*';  // Mina
 
 
-bool leer_archivo(tJuego& juego, string filename) {
+istream& operator>>(istream& in, tJuego& juego) {
 
-    bool open = true;
-    ifstream archivo;
-    archivo.open(filename);
+    int fils, cols, num_minas;
+    in >> fils >> cols;
 
-    if (archivo.is_open()) {
+    inicializar_tablero(juego.tablero, fils, cols);
+    in >> num_minas;
+    juego.num_minas = num_minas;
 
-        int fils, cols;
-        archivo >> fils >> cols >> juego.num_minas;
-        inicializar_tablero(juego.tablero, fils, cols);
-
-        for (int i = 1; i <= juego.num_minas; i++) {
-            int minaFila, minaColumna;
-
-            archivo >> minaFila >> minaColumna;
-            poner_mina(juego, minaFila, minaColumna);
-        }
+    for (int i = 0; i < num_minas; i++) {
+        int x, y;
+        in >> x >> y;
+        poner_mina(juego, x, y);
     }
-    else {
-        cout << "Error al abrir el archivo " << filename << endl;
-        open = false;
-    }
-
-    archivo.close();
-    return open;
+    return in;
 }
 
+bool nuevo_juego(tJuego& juego, int fils, int cols, int num_minas) {
+    bool carga = true;
+
+    //COLOCAR MINAS DE FORMA ALEATORIO (POSICIONES)
+    
+
+    return carga;
+}
+
+//Carga lista de juegos
 bool cargar_juegos(tListaJuegos &lista_juegos) {
     bool carga = true;
 
@@ -59,52 +58,67 @@ bool cargar_juegos(tListaJuegos &lista_juegos) {
         int num_juegos, dimFils, dimCols, num_minas, posx, posy;
 
         archivo >> num_juegos; //esto no hace falta guardarlo en la lista
+        
+        if (num_juegos < lista_juegos.capacidad) { 
 
-        for (int i = 0; i < num_juegos; i++) {
-            
-            tJuego* ptr;
-            ptr = new tJuego;
+            for (int i = 0; i < num_juegos; i++) {
 
-            archivo >> dimFils >> dimCols;
-            inicializar_tablero(ptr->tablero, dimFils, dimCols);
+                tJuego* ptr;
+                ptr = new tJuego;
 
-            archivo >> num_minas; 
-            ptr->num_minas = num_minas;
+                archivo >> *ptr;
 
-            for (int j = 0; j < num_minas; j++) {
-                archivo >> posx >> posy;
-                poner_mina(*ptr, posx, posy); //*ptr equivale a pasar el juego por referencia
+                /*
+                archivo >> dimFils >> dimCols;
+                inicializar_tablero(ptr->tablero, dimFils, dimCols);
+
+                archivo >> num_minas;
+                ptr->num_minas = num_minas;
+
+                for (int j = 0; j < num_minas; j++) {
+                    archivo >> posx >> posy;
+                    poner_mina(*ptr, posx, posy); //*ptr equivale a pasar el juego por referencia
+                }*/
+
+                if (lista_juegos.cont < lista_juegos.capacidad) {
+                    lista_juegos.lista[lista_juegos.cont] = ptr;
+                }
+                lista_juegos.cont++;
             }
-
-            if (lista_juegos.cont < lista_juegos.capacidad) {
-                lista_juegos.lista[i] = ptr;
-            }
-            lista_juegos.cont++;
+        }
+        else {
+            cout << "Error cargando lista de juegos" << endl;
+            carga = false;
         }
     }
-    else {
-        cout << "Error abriendo lista de juegos" << endl;
-        carga = false;
-    }
+        
     return carga;
 }
 
 void mostrar_juegos(tListaJuegos lista_juegos) {
 
-    cout << "Mostrando lista de jeugos por orden de dificultad..." << endl;
+    cout << "Mostrando lista de juegos por orden de dificultad..." << endl;
 
     for (int i = 0; i < lista_juegos.cont; i++) {
-        cout << "Juego " << lista_juegos.cont << ":" << endl;
+        cout << "Juego " << i << ":" << endl;
         cout << "   Dimension: " << dame_num_filas(*(lista_juegos.lista[i])) << " x ";
         cout << dame_num_columnas(*(lista_juegos.lista[i])) << endl;
         cout << "   Minas: " << dame_num_minas(*(lista_juegos.lista[i])) << endl;
     }
 }
 
-bool guardad_juegos(tListaJuegos* lista_juegos) {
+void ordenacion_listaJuegos(tListaJuegos& lista_juegos) {
+
+
+
+
+
+}
+
+bool guardar_juegos(tListaJuegos& lista_juegos) {
     bool carga = true;
 
-    cout << "Nombre de fichero para almacenar juegos: ";
+    cout << "Nombre del fichero para almacenar juegos: ";
     string fichero;
     cin >> fichero;
 
@@ -114,7 +128,7 @@ bool guardad_juegos(tListaJuegos* lista_juegos) {
     if (archivo.is_open()) {
 
 
-
+        
 
 
     }

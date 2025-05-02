@@ -17,11 +17,11 @@ void mostrar_separador(tJuego juego);
 void mostrar_celda(tJuego &juego, int f, int c);
 void color_numero(int numero);
 void mostrar_juego_consola(tJuego& juego);
-bool leer_archivo(tJuego& juego, string filename);
+istream& operator>>(istream& in, tJuego& juego);
+bool cargar_juegos(tListaJuegos& lista_juegos);
 int comprobarNum(string caracter);
 void mostrar_cabecera(tJuego juego); 
-bool cargar_juegos(tListaJuegos& lista_juegos);
 void mostrar_juegos(tListaJuegos lista_juegos);
-bool guardad_juegos(tListaJuegos* lista_juegos);
+bool guardar_juegos(tListaJuegos& lista_juegos);
 
 #endif

@@ -20,26 +20,61 @@ using namespace std;
 
 int main() {
 
-    tJuego juego;
-  
-    inicializar(juego); 
-
-    /*cout << "NOMBRE ARCHIVO: ";
-    string filename;
-    cin >> filename;*/
+    tJuego juego{};
+    inicializar(juego);
 
     tListaJuegos lista_juegos{};
-
     inicializar(lista_juegos);
 
-    if (cargar_juegos(lista_juegos)) {
+    cout << "Juego nuevo (opcion 1) o juego existente (opcion 2): ";
+    int opcion;
+    cin >> opcion;
 
-        mostrar_juegos(lista_juegos);
+    bool algun_juego_cargado = false; //devuelve si algún juego fue cargado
 
+    switch (opcion)
+    {
+    case 1:
+
+        cout << "Numero de filas (>=2) y columnas (>=2) del tablero: ";
+        int fil, cols;
+        cin >> fil >> cols;
+        cout << "Numero de minas (<8): ";
+        int num_minas;
+        cin >> num_minas;
+        //LLAMAR A juego_aleatorio()
+        /*if (juego_aleatorio()) {
+            algun_juego_cargado=true;
+        }*/   
+
+        break;
+
+    case 2:
+        //si no hay juegos en el fichero se crea de forma aleatoria un nuevo juego: juego_aleatorio()
+        if (cargar_juegos(lista_juegos)) { //cargo fichero con la lista de juegos 
+
+            algun_juego_cargado = true;
+            mostrar_juegos(lista_juegos);
+
+            cout << "Selecciona la partida: ";
+            int partida;
+            cin >> partida;
+        }
+        break;
+
+    default:
+        cout << "Opcion no valida" << endl;
+        break;
+    }
+
+    if (algun_juego_cargado) { //si se logró cargar un juego de la lista o crear uno existente se comienza a jugar.
+
+        
         tListaUndo lista_undo;
         inicializar(lista_undo);
-        tListaPosiciones lista_pos; 
+        tListaPosiciones lista_pos;
         inicializar(lista_pos);
+
 
         mostrar_juego_consola(juego); //se muestra el juego, con encabezado, num jugadas...
         cout << endl;
