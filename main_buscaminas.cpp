@@ -59,6 +59,8 @@ int main() {
             cout << "Selecciona la partida: ";
             int partida;
             cin >> partida;
+
+            juego = *(lista_juegos.lista[partida]);
         }
         break;
 
