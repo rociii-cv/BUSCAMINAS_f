@@ -60,7 +60,10 @@ int main() {
             int partida;
             cin >> partida;
 
-            juego = *(lista_juegos.lista[partida]);
+            //chequeo que el puntero apunte a algo, y que la opcion seleccionada (partida) sea válida:
+            if (lista_juegos.lista!= NULL && (partida < lista_juegos.cont && partida >= 0)) {
+                juego = *(lista_juegos.lista[partida]); //cargo ese juego seleccionado
+            }
         }
         break;
 
@@ -71,12 +74,10 @@ int main() {
 
     if (algun_juego_cargado) { //si se logró cargar un juego de la lista o crear uno existente se comienza a jugar.
 
-        
         tListaUndo lista_undo;
         inicializar(lista_undo);
         tListaPosiciones lista_pos;
         inicializar(lista_pos);
-
 
         mostrar_juego_consola(juego); //se muestra el juego, con encabezado, num jugadas...
         cout << endl;

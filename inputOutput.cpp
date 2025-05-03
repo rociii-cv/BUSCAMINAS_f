@@ -36,7 +36,7 @@ istream& operator>>(istream& in, tJuego& juego) {
 bool nuevo_juego(tJuego& juego, int fils, int cols, int num_minas) {
     bool carga = true;
 
-    //COLOCAR MINAS DE FORMA ALEATORIO (POSICIONES)
+    //COLOCAR MINAS DE FORMA ALEATORIA (POSICIONES)
     
 
     return carga;
@@ -57,7 +57,7 @@ bool cargar_juegos(tListaJuegos &lista_juegos) {
 
         int num_juegos, dimFils, dimCols, num_minas, posx, posy;
 
-        archivo >> num_juegos; //esto no hace falta guardarlo en la lista
+        archivo >> num_juegos; //esto no hace falta guardarlo en la lista_juegos
         
         if (num_juegos < lista_juegos.capacidad) { 
 
@@ -66,19 +66,7 @@ bool cargar_juegos(tListaJuegos &lista_juegos) {
                 tJuego* ptr;
                 ptr = new tJuego;
 
-                archivo >> *ptr;
-
-                /*
-                archivo >> dimFils >> dimCols;
-                inicializar_tablero(ptr->tablero, dimFils, dimCols);
-
-                archivo >> num_minas;
-                ptr->num_minas = num_minas;
-
-                for (int j = 0; j < num_minas; j++) {
-                    archivo >> posx >> posy;
-                    poner_mina(*ptr, posx, posy); //*ptr equivale a pasar el juego por referencia
-                }*/
+                archivo >> *ptr; //utilizo operando >>
 
                 if (lista_juegos.cont < lista_juegos.capacidad) {
                     lista_juegos.lista[lista_juegos.cont] = ptr;
@@ -90,8 +78,7 @@ bool cargar_juegos(tListaJuegos &lista_juegos) {
             cout << "Error cargando lista de juegos" << endl;
             carga = false;
         }
-    }
-        
+    } 
     return carga;
 }
 
