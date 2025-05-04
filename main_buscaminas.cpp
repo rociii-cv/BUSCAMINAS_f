@@ -61,8 +61,12 @@ int main() {
             cin >> partida;
 
             //chequeo que el puntero apunte a algo, y que la opcion seleccionada (partida) sea válida:
-            if (lista_juegos.lista!= NULL && (partida < lista_juegos.cont && partida >= 0)) {
-                juego = *(lista_juegos.lista[partida]); //cargo ese juego seleccionado
+            if (lista_juegos.lista != NULL && (partida < lista_juegos.cont && partida >= 0)) {
+                juego = dame_juego(lista_juegos, partida); //cargo ese juego seleccionado
+            }
+            else {
+                cout << "ERROR encontrado partida" << endl;
+                cout << "Indice no válido" << endl;
             }
         }
         break;

@@ -264,7 +264,7 @@ void mostrar_celda(tJuego &juego, int fila, int columna) {
     }
 }
 
-void mostrar_cabecera(tJuego juego) {
+void mostrar_cabecera(tJuego &juego) {
     cout << endl;
     cout << "            BUSCAMINAS" << endl;
     cout << "           ------------" << endl;

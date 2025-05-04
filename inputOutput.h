@@ -20,7 +20,7 @@ void mostrar_juego_consola(tJuego& juego);
 istream& operator>>(istream& in, tJuego& juego);
 bool cargar_juegos(tListaJuegos& lista_juegos);
 int comprobarNum(string caracter);
-void mostrar_cabecera(tJuego juego); 
+void mostrar_cabecera(tJuego& juego); 
 void mostrar_juegos(tListaJuegos lista_juegos);
 bool guardar_juegos(tListaJuegos& lista_juegos);
 

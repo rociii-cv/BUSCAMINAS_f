@@ -5,6 +5,7 @@ using namespace std;
 #include "celda.h"
 #include "listaPosiciones.h"
 #include "listaUndo.h"
+#include "listaJuegos.h"
 
 void inicializar(tJuego& juego) { //creamos un juego vacío
 	juego.mina_explotada = false;
@@ -34,10 +35,9 @@ int dame_num_minas(tJuego &juego){//devuelve el nº de minas que hay en el juego
 	return juego.num_minas; 
 }
 
-//las siguientes funciones utilizan funciones de celda.cpp 
-bool contiene_mina(tJuego juego, int fila, int columna) { //devuelve si la pos es mina, tJuego-->struct dentro 
+bool contiene_mina(tJuego juego, int fila, int columna) { //devuelve si la pos es mina
 	tCelda celda= dame_celda(juego.tablero, fila, columna);
-	return (es_mina(celda)); //tTablero-->struct (tCelda matriz y nfils, ncols)
+	return (es_mina(celda)); 
 }
 
 bool es_visible(tJuego juego,int fila, int columna) { //devuelve si la pos esta visible
@@ -144,6 +144,8 @@ void poner_mina(tJuego& juego, int fila, int columna) {
 		}
 	}
 }
+
+
 
 void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo) { //intenta descubrir la celda de la pos marcada
 
