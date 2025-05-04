@@ -32,6 +32,7 @@ void marcar_desmarcar(tJuego& juego, int fila, int columna);
 void juega(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos, tListaUndo& lista_undo);
 void descubrir_vacia(tJuego& juego, int fila, int columna, tListaPosiciones& lista_pos);
 int calcula_nivel(tJuego juego); 
+tJuego crear_juego(int num_fils, int num_cols, int num_minas);
 
 #endif
 

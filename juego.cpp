@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std; 
 #include "juego.h"
 #include "tablero.h"
@@ -269,4 +271,22 @@ int calcula_nivel(tJuego *juego) {
 	int dificultad = dimension / juego->num_minas;
 
 	return dificultad;
+}
+
+tJuego crear_juego(int num_fils, int num_cols, int num_minas) {
+	tJuego juego; 
+	inicializar_tablero(juego.tablero, num_fils, num_cols); 
+	inicializar(juego); 
+	//poner minas aleatorias
+	srand(time(NULL)); 
+	int minas_colocadas = 0; 
+	while (minas_colocadas < num_minas) {
+		int fila = rand() % num_fils; 
+		int col = rand() % num_cols; 
+		if (!es_mina(juego.tablero.datos[fila][col])) {
+			poner_mina(juego.tablero.datos[fila][col]); 
+			minas_colocadas++; 
+		}
+	}
+	return juego;
 }

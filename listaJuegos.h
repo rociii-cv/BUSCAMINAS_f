@@ -6,17 +6,17 @@ using namespace std;
 const int MAX_JUEGOS = 1; 
 
 typedef struct {
-	tJuego** lista; 
-	int cont; 
-	int capacidad; 
+	tJuego** lista; //lista es array dinamico de punteros de tJuego
+	int cont;       //elementos usados
+	int capacidad;	//posiciones en total del array
 }tListaJuegos;
 
 void inicializar(tListaJuegos*& lista_juegos);
 void destruye(tListaJuegos* lista_juegos);
 void insertar(tListaJuegos* lista_juegos, tJuego* juego); 
 int numero_juegos(tListaJuegos lista_juegos);
-//es_vacia(lista_juegos); 
-//dame_juego(lista_juegos, pos); 
-//eliminar(lista_juegos, pos); 
+bool es_vacia(tListaJuegos lista_juegos); 
+tJuego dame_juego(tListaJuegos lista_juegos, int pos); 
+void eliminar(tListaJuegos lista_juegos, int pos);
 
 #endif

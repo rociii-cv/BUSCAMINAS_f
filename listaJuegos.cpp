@@ -26,7 +26,7 @@ void destruye(tListaJuegos *lista_juegos) {
 	lista_juegos->cont = 0; 
 }
 
-void insertar(tListaJuegos* lista_juegos, tJuego *juego) {
+void insertar(tListaJuegos* lista_juegos, tJuego *juego) { //??
 
 	int i = 0;
 
@@ -43,4 +43,24 @@ bool es_vacia(tListaJuegos lista_juegos) { //devuelve si la lista de juegos esta
 		lista_juegos.capacidad = true; 
 	}
 	return lista_juegos.capacidad; 
+}
+
+tJuego dame_juego(tListaJuegos lista_juegos, int pos) { //ojo estas devolviendo algo que ya esta creado, no hace falta ningun new
+	tJuego vacio; 
+	if (pos >= 0 && lista_juegos.cont && lista_juegos.lista[pos] != NULL) {
+		return *(lista_juegos.lista[pos]); //copia el juego en la posicion
+	}
+	else {
+		inicializar(vacio); 
+	}
+}
+
+void eliminar(tListaJuegos *lista_juegos, int pos) {
+	if (pos >= 0 && pos < lista_juegos->cont) {
+		//recolocar las listas en el array
+		for (int i = pos; i < lista_juegos->cont - 1; i++) {
+			lista_juegos->lista[i] = lista_juegos->lista[i + 1]; 
+		}
+	}
+	lista_juegos->cont--; 
 }
