@@ -42,7 +42,7 @@ int main() {
         cout << "Numero de minas (<8): ";
         int num_minas;
         cin >> num_minas;
-        //LLAMAR A juego_aleatorio()
+        //LLAMAR A juego_aleatorio() *************************************************
         /*if (juego_aleatorio()) {
             algun_juego_cargado=true;
         }*/   
@@ -50,7 +50,7 @@ int main() {
         break;
 
     case 2:
-        //si no hay juegos en el fichero se crea de forma aleatoria un nuevo juego: juego_aleatorio()
+        //si no hay juegos en el fichero se crea de forma aleatoria un nuevo juego: juego_aleatorio() **********************
         if (cargar_juegos(lista_juegos)) { //cargo fichero con la lista de juegos 
 
             algun_juego_cargado = true;
